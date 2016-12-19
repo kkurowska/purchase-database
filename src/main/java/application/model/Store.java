@@ -1,6 +1,5 @@
 package application.model;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,13 +14,12 @@ public class Store{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    @OneToMany(mappedBy = "store_id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    protected Store() {
+    public Store() {
     }
 
     public Store(String name) {

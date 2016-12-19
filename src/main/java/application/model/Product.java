@@ -1,6 +1,5 @@
 package application.model;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,10 +11,10 @@ import java.io.Serializable;
 @Entity
 public class Product{
 
+
+    @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    @OneToMany(mappedBy = "product_id")
     private Long id;
 
     @Column(name = "name")
@@ -24,11 +23,13 @@ public class Product{
     @Column(name = "unit")
     private String unit;
 
-    @ManyToOne
-    @JoinColumn(name = "category")
+    @Column(name = "producer")
+    private String producer;
+
+    @Enumerated(EnumType.STRING)
     private Category category;
 
-    protected Product() { }
+    public Product() { }
 
     public Product(String name, String unit, Category category) {
         super();
@@ -61,6 +62,14 @@ public class Product{
         this.unit = unit;
     }
 
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -71,6 +80,6 @@ public class Product{
 
     @Override
     public String toString() {
-        return getName() + " [" + getUnit() + "], " + category.getName();
+        return getName() + " [" + getUnit() + "], " + category.getValue();
     }
 }

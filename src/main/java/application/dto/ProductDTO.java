@@ -7,13 +7,17 @@ public class ProductDTO {
 
     private Long id;
     private String name;
+    private String producer;
+    private String unit;
     private String category;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(String name, String category) {
+    public ProductDTO(String name, String producer, String unit, String category) {
         this.name = name;
+        this.producer = producer;
+        this.unit = unit;
         this.category = category;
     }
 
@@ -31,6 +35,22 @@ public class ProductDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProducer() {
+        return producer;
+    }
+
+    public void setProducer(String producer) {
+        this.producer = producer;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public String getCategory() {

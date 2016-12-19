@@ -21,7 +21,8 @@ public class Test {
 
         Product product = new Product("Milk","1 liter", Category.GROCERIES);
         Store store = new Store("Lidl");
-        Date date = new Date("2016/12/16");
+        //Date date = new Date("2016/12/16 10:23:04");
+        Date date = new Date (2016, 12, 16, 10,23, 04);
         Purchase purchase = new Purchase(product, store, 3.50, false, date);
         System.out.println(purchase.toString());
 

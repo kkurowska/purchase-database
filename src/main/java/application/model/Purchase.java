@@ -1,6 +1,5 @@
 package application.model;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,13 +34,12 @@ public class Purchase{
     private boolean sale;
 
     @Column(name = "data")
-    private Date date; //"MM-dd-yyyy"
+    private Date date;
 
-    protected Purchase() {
+    public Purchase() {
     }
 
-    public Purchase(Product product, Store store, double price, boolean sale,Date date) {
-        super();
+    public Purchase(Product product, Store store, double price, boolean sale, Date date) {
         this.product = product;
         this.store = store;
         this.price = price;
@@ -57,8 +55,7 @@ public class Purchase{
         } else {
             issale = "NO";
         }
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return product.toString() + ", " + store.toString() + ", " + getPrice() + ", " + issale + ", " + dateFormat.format(getDate());
+        return getProduct().toString() + ", " + getStore().toString() + ", " + getPrice() + ", " + issale + ", " + getFormatedDate();
     }
 
     public Long getId() {
@@ -107,5 +104,10 @@ public class Purchase{
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getFormatedDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dateFormat.format(getDate());
     }
 }

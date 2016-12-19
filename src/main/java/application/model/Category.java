@@ -6,27 +6,27 @@ package application.model;
  */
 
 public enum Category {
-    GROCERIES("groceries"),
-    COSMETICS("cosmetics"),
-    FASHION("fashion"),
-    PHARMACY("pharmacy"),
-    HOME("home"),
-    OFFICE("office"),
-    HOBBY("hobby");
+    GROCERIES("GROCERIES"),
+    COSMETICS("COSMETICS"),
+    FASHION("FASHION"),
+    PHARMACY("PHARMACY"),
+    HOME("HOME"),
+    OFFICE("OFFICE"),
+    HOBBY("HOBBY");
 
-    private String name;
+    private String value;
 
-    Category(String name){
-        this.name = name;
+    Category(String value) {
+        this.value = value;
     }
 
-    public String getName(){
-        return this.name;
+    public String getValue() {
+        return value;
     }
 
-    public static final Category fromName(String key) {
+    public static final Category fromValue(String key) {
         for (Category c : Category.values()) {
-            if (c.name.equals(key)) {
+            if (c.value.equals(key)) {
                 return c;
             }
         }
