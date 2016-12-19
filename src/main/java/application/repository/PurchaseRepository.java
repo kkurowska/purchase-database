@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
  * Created by kkurowska on 15.12.2016.
  */
 
+@Repository
 public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
 }

@@ -4,13 +4,16 @@ import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by kkurowska on 13.12.2016.
  */
 
 @Entity
-public class Purchase implements Serializable {
+public class Purchase{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,15 +34,19 @@ public class Purchase implements Serializable {
     @Column(name = "sale")
     private boolean sale;
 
+    @Column(name = "data")
+    private Date date; //"MM-dd-yyyy"
+
     protected Purchase() {
     }
 
-    public Purchase(Product product, Store store, double price, boolean sale) {
+    public Purchase(Product product, Store store, double price, boolean sale,Date date) {
         super();
         this.product = product;
         this.store = store;
         this.price = price;
         this.sale = sale;
+        this.date = date;
     }
 
     @Override
@@ -50,7 +57,16 @@ public class Purchase implements Serializable {
         } else {
             issale = "NO";
         }
-        return product.toString() + ", " + store.toString() + ", " + getPrice() + ", " + issale;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return product.toString() + ", " + store.toString() + ", " + getPrice() + ", " + issale + ", " + dateFormat.format(getDate());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Product getProduct() {
@@ -83,5 +99,13 @@ public class Purchase implements Serializable {
 
     public void setSale(boolean sale) {
         this.sale = sale;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

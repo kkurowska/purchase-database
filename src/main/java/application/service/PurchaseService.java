@@ -1,6 +1,8 @@
 package application.service;
 
 import application.model.Purchase;
+import application.repository.PurchaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,8 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class PurchaseService {
 
-    private Purchase purchase;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
-    public PurchaseService() {
-    }
+
 }

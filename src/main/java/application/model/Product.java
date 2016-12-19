@@ -10,9 +10,7 @@ import java.io.Serializable;
  */
 
 @Entity
-public class Product implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Product{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +35,14 @@ public class Product implements Serializable {
         this.name = name;
         this.unit = unit;
         this.category = category;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

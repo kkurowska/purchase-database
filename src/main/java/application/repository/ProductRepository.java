@@ -11,6 +11,7 @@ import java.util.List;
  * Created by kkurowska on 15.12.2016.
  */
 
+@Repository
 public interface ProductRepository extends CrudRepository<Product, Long>, JpaSpecificationExecutor {
 
 //    List<Product> findByName(String name);

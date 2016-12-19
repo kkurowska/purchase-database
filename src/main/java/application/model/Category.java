@@ -24,4 +24,13 @@ public enum Category {
         return this.name;
     }
 
+    public static final Category fromName(String key) {
+        for (Category c : Category.values()) {
+            if (c.name.equals(key)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 }

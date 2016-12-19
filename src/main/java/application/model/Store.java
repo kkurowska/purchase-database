@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 
 @Entity
-public class Store implements Serializable {
+public class Store{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +27,14 @@ public class Store implements Serializable {
     public Store(String name) {
         super();
         this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
