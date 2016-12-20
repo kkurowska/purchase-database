@@ -6,9 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -36,4 +34,8 @@ public class StoreController {
     @ApiOperation(value = "updateStore", nickname = "updateStore")
     @RequestMapping(value = "/updateStore", method = PUT)
     public Long updateStore(@RequestBody StoreDTO dto) { return storeService.updateStore(dto);}
+
+    @ApiOperation(value = "deleteStore", nickname = "deleteStore")
+    @RequestMapping(value = "/deleteStore/{id}", method = DELETE)
+    public void deleteStore(@PathVariable Long id) { storeService.deleteStore(id);}
 }

@@ -60,6 +60,14 @@ public class ProductService {
         return productRepository.save(product).getId();
     }
 
+    public void deleteProduct(Long id){
+        Product product = productRepository.findOne(id);
+        if (product == null){
+            throw new ProductNotFoundException("Product not found.");
+        }
+        productRepository.delete(id);
+    }
+
     private void validateUpdate(ProductDTO dto) {
         //TODO
     }
@@ -72,5 +80,5 @@ public class ProductService {
             throw new ProductExistException("This product already exist.");
         }
     }
-
+    //TODO isNotEmpty etc
 }

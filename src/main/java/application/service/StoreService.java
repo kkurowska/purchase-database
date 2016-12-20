@@ -46,6 +46,14 @@ public class StoreService {
         return storeRepository.save(store).getId();
     }
 
+    public void deleteStore(Long id){
+        Store store = storeRepository.findOne(id);
+        if (store == null){
+            throw new StoreNotFoundException("Store not found");
+        }
+        storeRepository.delete(id);
+    }
+
     private void validateUpdate(StoreDTO dto) {
         //TODO
     }
@@ -55,5 +63,5 @@ public class StoreService {
             throw new StoreExistException("This store already exist.");
         }
     }
-
+    //TODO isNotEmpty etc
 }

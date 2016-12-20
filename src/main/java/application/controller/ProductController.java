@@ -6,9 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -37,5 +35,9 @@ public class ProductController {
     @ApiOperation(value = "updateProduct", nickname = "updateProduct")
     @RequestMapping(value = "/updateProduct", method = PUT)
     public Long updateProduct(@RequestBody ProductDTO dto) { return productService.updateProduct(dto);}
+
+    @ApiOperation(value = "deleteProduct", nickname = "deleteProduct")
+    @RequestMapping(value = "/deleteProduct/{id}", method = DELETE)
+    public void deleteProduct(@PathVariable Long id) { productService.deleteProduct(id);}
 
 }

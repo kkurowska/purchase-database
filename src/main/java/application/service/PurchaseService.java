@@ -84,6 +84,14 @@ public class PurchaseService {
         return dto;
     }
 
+    public void deletePurchase(Long id){
+        Purchase purchase = purchaseRepository.findOne(id);
+        if (purchase == null){
+            throw new PurchaseNotFoundException("Purchase not found.");
+        }
+        purchaseRepository.delete(id);
+    }
+
 
     private void validate(PurchaseDTO dto){
         if (!productRepository.exists(dto.getProductId())){

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -46,8 +47,12 @@ public class PurchaseController {
     }
 
     @ApiOperation(value = "findPurchase", nickname = "findPurchase")
-    @RequestMapping(value = "/get/{id}", method = GET)
+    @RequestMapping(value = "/getPurchase/{id}", method = GET)
     public PurchaseDTO findPurchase(@PathVariable Long id) {
         return purchaseService.findPurchase(id);
     }
+
+    @ApiOperation(value = "deletePurchase", nickname = "deletePurchase")
+    @RequestMapping(value = "/deletePurchase/{id}", method = DELETE)
+    public void deletePurchase(@PathVariable Long id) { purchaseService.deletePurchase(id);}
 }
