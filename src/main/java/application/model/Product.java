@@ -20,8 +20,8 @@ public class Product{
     @Column(name = "name")
     private String name;
 
-    @Column(name = "unit")
-    private String unit;
+    @Enumerated(EnumType.STRING)
+    private Unit unit;
 
     @Column(name = "producer")
     private String producer;
@@ -31,7 +31,7 @@ public class Product{
 
     public Product() { }
 
-    public Product(String name, String unit, Category category) {
+    public Product(String name, Unit unit, Category category) {
         super();
         this.name = name;
         this.unit = unit;
@@ -54,11 +54,11 @@ public class Product{
         this.name = name;
     }
 
-    public String getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 

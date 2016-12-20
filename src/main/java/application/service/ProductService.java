@@ -6,6 +6,7 @@ import application.exception.ProductExistException;
 import application.exception.ProductNotFoundException;
 import application.model.Category;
 import application.model.Product;
+import application.model.Unit;
 import application.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class ProductService {
         Product product = new Product();
         product.setName(dto.getName());
         product.setProducer(dto.getProducer());
-        product.setUnit(dto.getUnit());
+        product.setUnit(Unit.valueOf(dto.getUnit()));
         product.setCategory(Category.valueOf(dto.getCategory()));
 
         return productRepository.save(product).getId();
@@ -42,7 +43,7 @@ public class ProductService {
         dto.setId(product.getId());
         dto.setName(product.getName());
         dto.setProducer(product.getProducer());
-        dto.setUnit(product.getUnit());
+        dto.setUnit(product.getUnit().getValue());
         dto.setCategory(product.getCategory().getValue());
         return dto;
     }
@@ -55,7 +56,7 @@ public class ProductService {
         validateUpdate(dto);
         product.setName(dto.getName());
         product.setProducer(dto.getProducer());
-        product.setUnit(dto.getUnit());
+        product.setUnit(Unit.valueOf(dto.getUnit()));
         product.setCategory(Category.valueOf(dto.getCategory()));
         return productRepository.save(product).getId();
     }

@@ -7,4 +7,6 @@ spring.h2.console.enabled=true
 spring.jpa.database=h2
 spring.jpa.show-sql=true
 
+server.port = 8191
+
 logging.level.org.hibernate.SQL=debug
