@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -27,9 +28,14 @@ public class ProductController {
     }
 
     @ApiOperation(value = "findProduct", nickname = "findProduct")
-    @RequestMapping(value = "/get/{id}", method = GET)
+    @RequestMapping(value = "/getProduct/{id}", method = GET)
     public ProductDTO findProduct(@PathVariable Long id) {
         return productService.findProduct(id);
     }
+
+
+    @ApiOperation(value = "updateProduct", nickname = "updateProduct")
+    @RequestMapping(value = "/updateProduct", method = PUT)
+    public Long updateProduct(@RequestBody ProductDTO dto) { return productService.updateProduct(dto);}
 
 }

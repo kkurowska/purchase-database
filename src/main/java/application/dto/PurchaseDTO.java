@@ -14,12 +14,12 @@ public class PurchaseDTO {
     private Long storeId;
     private double price;
     private boolean sale;
-    private Date date;
+    private String date;
 
     public PurchaseDTO() {
     }
 
-    public PurchaseDTO(Long id, Long productId, Long storeId, double price, boolean sale, Date date) {
+    public PurchaseDTO(Long id, Long productId, Long storeId, double price, boolean sale, String date) {
         this.productId = productId;
         this.storeId = storeId;
         this.price = price;
@@ -67,11 +67,11 @@ public class PurchaseDTO {
         this.sale = sale;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

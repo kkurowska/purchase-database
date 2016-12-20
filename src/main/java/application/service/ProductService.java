@@ -47,6 +47,23 @@ public class ProductService {
         return dto;
     }
 
+    public Long updateProduct(ProductDTO dto){
+        Product product = productRepository.findOne(dto.getId());
+        if (product == null){
+            throw new ProductNotFoundException("Product not found.");
+        }
+        validateUpdate(dto);
+        product.setName(dto.getName());
+        product.setProducer(dto.getProducer());
+        product.setUnit(dto.getUnit());
+        product.setCategory(Category.valueOf(dto.getCategory()));
+        return productRepository.save(product).getId();
+    }
+
+    private void validateUpdate(ProductDTO dto) {
+        //TODO
+    }
+
     private void validate(ProductDTO dto){
         if (fromValue(dto.getCategory()) == null){
             throw new CategoryIllegalArgumentException("There is no category named '" + dto.getCategory() + "'.");

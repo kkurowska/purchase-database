@@ -4,7 +4,6 @@ spring.datasource.driver-class-name=com.h2.jdbc.Driver
 
 spring.h2.console.enabled=true
 
-spring.jpa.hibernate.ddl-auto=create-drop
 spring.jpa.database=h2
 spring.jpa.show-sql=true
 

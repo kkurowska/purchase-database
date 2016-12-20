@@ -14,6 +14,11 @@ import application.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by kkurowska on 15.12.2016.
  */
@@ -30,6 +35,8 @@ public class PurchaseService {
     @Autowired
     private StoreRepository storeRepository;
 
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     public Long addPurchase(PurchaseDTO dto){
         validate(dto);
         Purchase purchase = new Purchase();
@@ -37,7 +44,12 @@ public class PurchaseService {
         purchase.setStore(storeRepository.findOne(dto.getStoreId()));
         purchase.setPrice(dto.getPrice());
         purchase.setSale(dto.isSale());
-        purchase.setDate(dto.getDate());
+        try {
+            Date date = dateFormat.parse(dto.getDate());
+            purchase.setDate(date);
+        } catch (ParseException e){
+            //TODO
+        }
         return purchaseRepository.save(purchase).getId();
     }
 
@@ -48,7 +60,12 @@ public class PurchaseService {
         purchase.setStore(storeRepository.findByName(storeName));
         purchase.setPrice(dto.getPrice());
         purchase.setSale(dto.isSale());
-        purchase.setDate(dto.getDate());
+        try {
+            Date date = dateFormat.parse(dto.getDate());
+            purchase.setDate(date);
+        } catch (ParseException e){
+            //TODO
+        }
         return purchaseRepository.save(purchase).getId();
     }
 
@@ -63,9 +80,10 @@ public class PurchaseService {
         dto.setStoreId(purchase.getStore().getId());
         dto.setPrice(purchase.getPrice());
         dto.setSale(purchase.isSale());
-        dto.setDate(purchase.getDate());
+        dto.setDate(dateFormat.format(purchase.getDate()));
         return dto;
     }
+
 
     private void validate(PurchaseDTO dto){
         if (!productRepository.exists(dto.getProductId())){

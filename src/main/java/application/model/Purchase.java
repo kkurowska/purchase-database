@@ -55,7 +55,7 @@ public class Purchase{
         } else {
             issale = "NO";
         }
-        return getProduct().toString() + ", " + getStore().toString() + ", " + getPrice() + ", " + issale + ", " + getFormatedDate();
+        return getProduct().toString() + ", " + getStore().toString() + ", " + getPrice() + ", " + issale + ", " + getDate().toLocaleString();
     }
 
     public Long getId() {

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -27,8 +28,12 @@ public class StoreController {
     }
 
     @ApiOperation(value = "findStore", nickname = "findStore")
-    @RequestMapping(value = "/get/{id}", method = GET)
+    @RequestMapping(value = "/getStore/{id}", method = GET)
     public StoreDTO findStore(@PathVariable Long id) {
         return storeService.findStore(id);
     }
+
+    @ApiOperation(value = "updateStore", nickname = "updateStore")
+    @RequestMapping(value = "/updateStore", method = PUT)
+    public Long updateStore(@RequestBody StoreDTO dto) { return storeService.updateStore(dto);}
 }

@@ -36,6 +36,20 @@ public class StoreService {
         return dto;
     }
 
+    public Long updateStore(StoreDTO dto){
+        Store store = storeRepository.findOne(dto.getId());
+        if (store == null){
+            throw new StoreNotFoundException("Store not found");
+        }
+        validateUpdate(dto);
+        store.setName(dto.getName());
+        return storeRepository.save(store).getId();
+    }
+
+    private void validateUpdate(StoreDTO dto) {
+        //TODO
+    }
+
     private void validate(StoreDTO dto){
         if (storeRepository.findByName(dto.getName()) != null){
             throw new StoreExistException("This store already exist.");
