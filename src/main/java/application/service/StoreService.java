@@ -71,7 +71,7 @@ public class StoreService {
             errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
         }
 
-        if (storeRepository.findByName(dto.getName()) != null){
+        if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
             errors.add(new ValidationError("store", ALREADY_EXIST));
         }
 
@@ -92,7 +92,7 @@ public class StoreService {
             errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
         }
 
-        if (storeRepository.findByName(dto.getName()) != null){
+        if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
             errors.add(new ValidationError("store", ALREADY_EXIST));
         }
 

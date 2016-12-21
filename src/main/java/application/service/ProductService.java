@@ -133,7 +133,7 @@ public class ProductService {
         if (fromUnitValue(dto.getUnit()) == null){
             errors.add(new ValidationError("unit", NOT_ALLOWED));
         }
-        if (productRepository.findByNameAndProducer(dto.getName(), dto.getProducer()) != null){
+        if (productRepository.findByNameIgnoreCaseAndProducerIgnoreCase(dto.getName(), dto.getProducer()) != null){
             errors.add(new ValidationError("product", ALREADY_EXIST));
         }
 

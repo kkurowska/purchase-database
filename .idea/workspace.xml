@@ -2,32 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c0213c3-8874-4a3d-9ec8-e2fa8b54a778" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/controller/GlobalExceptionHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/exception/ValidationException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/application/exception/WrongDateFormatException.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/application/exception/CategoryIllegalArgumentException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/application/exception/ProductExistException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/application/exception/StoreExistException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/application/exception/UnitIllegalArgumentException.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/application/service/PurchaseService.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/Test.class" afterPath="$PROJECT_DIR$/target/classes/application/Test.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/controller/PurchaseController.class" afterPath="$PROJECT_DIR$/target/classes/application/controller/PurchaseController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/model/Category.class" afterPath="$PROJECT_DIR$/target/classes/application/model/Category.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/model/Purchase.class" afterPath="$PROJECT_DIR$/target/classes/application/model/Purchase.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/repository/PurchaseRepository.class" afterPath="$PROJECT_DIR$/target/classes/application/repository/PurchaseRepository.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/ProductService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/ProductService.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/application/service/StoreService.class" afterPath="$PROJECT_DIR$/target/classes/application/service/StoreService.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/controller/PurchaseController.java" afterPath="$PROJECT_DIR$/src/main/java/application/controller/PurchaseController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/dto/PurchaseDTO.java" afterPath="$PROJECT_DIR$/src/main/java/application/dto/PurchaseDTO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/exception/ErrorMessages.java" afterPath="$PROJECT_DIR$/src/main/java/application/exception/ErrorMessages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/exception/ValidationError.java" afterPath="$PROJECT_DIR$/src/main/java/application/exception/ValidationError.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/model/Purchase.java" afterPath="$PROJECT_DIR$/src/main/java/application/model/Purchase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/PurchaseRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/PurchaseRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/ProductService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/ProductService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/PurchaseService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/PurchaseService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/StoreService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/StoreService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/aplication.properities" afterPath="$PROJECT_DIR$/target/classes/aplication.properities" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -47,11 +26,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ProductService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ProductService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ProductService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="108" column="9" lean-forward="true" selection-start-line="106" selection-start-column="8" selection-end-line="108" selection-end-column="9" />
+            <state relative-caret-position="413">
+              <caret line="140" column="50" lean-forward="true" selection-start-line="140" selection-start-column="50" selection-end-line="140" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,21 +41,41 @@
       <file leaf-file-name="StoreService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/application/service/StoreService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="89" column="9" lean-forward="true" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
+            <state relative-caret-position="238">
+              <caret line="85" column="67" lean-forward="true" selection-start-line="85" selection-start-column="67" selection-end-line="85" selection-end-column="67" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PurchaseService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PurchaseService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/application/service/PurchaseService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+            <state relative-caret-position="330">
+              <caret line="162" column="13" lean-forward="true" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ProductRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StoreRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -130,7 +129,6 @@
         <option value="$PROJECT_DIR$/src/main/java/application/dto/StoreDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/CategoryIllegalArgumentException.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/dto/ProductDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/ProductExistException.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/StoreExistException.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/ProductNotExistException.java" />
@@ -148,7 +146,6 @@
         <option value="$PROJECT_DIR$/src/main/java/application/dto/PurchaseDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/ValidationError.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/ErrorMessages.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/repository/PurchaseRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/controller/PurchaseController.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/PurchaseNotFoundException.java" />
@@ -157,9 +154,11 @@
         <option value="$PROJECT_DIR$/src/main/java/application/exception/WrongDateFormatException.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/exception/GlobalExceptionHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/controller/GlobalExceptionHandler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/ProductService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/application/service/StoreService.java" />
         <option value="$PROJECT_DIR$/src/main/java/application/service/PurchaseService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/service/StoreService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/application/service/ProductService.java" />
       </list>
     </option>
   </component>
@@ -747,12 +746,19 @@
       <option name="project" value="LOCAL" />
       <updated>1482305435497</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="PPCE-30&#10;Implement Exceptions">
+      <created>1482321768626</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1482321768626</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -794,7 +800,8 @@
     <MESSAGE value="PPCE-23&#10;Make ability to delete existing entities" />
     <MESSAGE value="PPCE-31&#10;Create Unit as enum" />
     <MESSAGE value="PPCE-32&#10;[Updating products]" />
-    <option name="LAST_COMMIT_MESSAGE" value="PPCE-32&#10;[Updating products]" />
+    <MESSAGE value="PPCE-30&#10;Implement Exceptions" />
+    <option name="LAST_COMMIT_MESSAGE" value="PPCE-30&#10;Implement Exceptions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1167,32 +1174,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="17" column="34" lean-forward="false" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/PurchaseRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="16" column="64" lean-forward="true" selection-start-line="16" selection-start-column="64" selection-end-line="16" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/exception/PurchaseNotFoundException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1237,6 +1218,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/PurchaseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="162" column="13" lean-forward="true" selection-start-line="162" selection-start-column="13" selection-end-line="162" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/StoreService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="85" column="67" lean-forward="true" selection-start-line="85" selection-start-column="67" selection-end-line="85" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/application/controller/GlobalExceptionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -1251,28 +1258,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ProductService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/PurchaseRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="108" column="9" lean-forward="true" selection-start-line="106" selection-start-column="8" selection-end-line="108" selection-end-column="9" />
+        <state relative-caret-position="357">
+          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/StoreService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="89" column="9" lean-forward="true" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
+        <state relative-caret-position="187">
+          <caret line="16" column="32" lean-forward="false" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/PurchaseService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/application/service/ProductService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+        <state relative-caret-position="413">
+          <caret line="140" column="50" lean-forward="true" selection-start-line="140" selection-start-column="50" selection-end-line="140" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

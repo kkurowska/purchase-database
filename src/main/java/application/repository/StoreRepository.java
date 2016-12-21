@@ -15,5 +15,5 @@ import java.util.List;
 @Repository
 public interface StoreRepository extends CrudRepository<Store, Long>, JpaSpecificationExecutor {
 
-    Store findByName(String name);
+    Store findByNameIgnoreCase(String name);
 }

@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long>, JpaSpecificationExecutor {
 
-    Product findByNameAndProducer(String name, String producer);
+    Product findByNameIgnoreCaseAndProducerIgnoreCase(String name, String producer);
 //    List<Product> findByCategory(String category);
 }
