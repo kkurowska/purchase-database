@@ -24,7 +24,7 @@ public enum Category {
         return value;
     }
 
-    public static final Category fromValue(String key) {
+    public static final Category fromCategoryValue(String key) {
         for (Category c : Category.values()) {
             if (c.value.equals(key)) {
                 return c;

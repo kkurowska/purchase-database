@@ -18,7 +18,7 @@ public enum Unit {
         return value;
     }
 
-    public static final Unit fromValue(String key) {
+    public static final Unit fromUnitValue(String key) {
         for (Unit u : Unit.values()) {
             if (u.value.equals(key)) {
                 return u;

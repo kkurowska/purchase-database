@@ -41,7 +41,7 @@ public class StoreService {
         if (store == null){
             throw new StoreNotFoundException("Store not found");
         }
-        validateUpdate(dto);
+        validate(dto);
         store.setName(dto.getName());
         return storeRepository.save(store).getId();
     }
@@ -52,10 +52,6 @@ public class StoreService {
             throw new StoreNotFoundException("Store not found");
         }
         storeRepository.delete(id);
-    }
-
-    private void validateUpdate(StoreDTO dto) {
-        //TODO
     }
 
     private void validate(StoreDTO dto){

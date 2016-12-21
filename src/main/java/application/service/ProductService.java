@@ -4,6 +4,7 @@ import application.dto.ProductDTO;
 import application.exception.CategoryIllegalArgumentException;
 import application.exception.ProductExistException;
 import application.exception.ProductNotFoundException;
+import application.exception.UnitIllegalArgumentException;
 import application.model.Category;
 import application.model.Product;
 import application.model.Unit;
@@ -11,7 +12,8 @@ import application.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static application.model.Category.fromValue;
+import static application.model.Category.fromCategoryValue;
+import static application.model.Unit.fromUnitValue;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -53,7 +55,7 @@ public class ProductService {
         if (product == null){
             throw new ProductNotFoundException("Product not found.");
         }
-        validateUpdate(dto);
+        validate(dto);
         product.setName(dto.getName());
         product.setProducer(dto.getProducer());
         product.setUnit(Unit.valueOf(dto.getUnit()));
@@ -69,13 +71,12 @@ public class ProductService {
         productRepository.delete(id);
     }
 
-    private void validateUpdate(ProductDTO dto) {
-        //TODO
-    }
-
     private void validate(ProductDTO dto){
-        if (fromValue(dto.getCategory()) == null){
+        if (fromCategoryValue(dto.getCategory()) == null){
             throw new CategoryIllegalArgumentException("There is no category named '" + dto.getCategory() + "'.");
+        }
+        if (fromUnitValue(dto.getUnit()) == null){
+            throw new UnitIllegalArgumentException("There is no unit named '" + dto.getUnit() + "'.");
         }
         if (productRepository.findByNameAndProducer(dto.getName(), dto.getProducer()) != null){
             throw new ProductExistException("This product already exist.");
