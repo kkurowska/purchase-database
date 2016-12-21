@@ -105,9 +105,4 @@ public class Purchase{
     public void setDate(Date date) {
         this.date = date;
     }
-
-    public String getFormatedDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return dateFormat.format(getDate());
-    }
 }

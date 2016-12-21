@@ -32,19 +32,19 @@ public class PurchaseController {
         return purchaseService.addPurchase(dto);
     }
 
-    @ApiOperation(value = "addPurchaseByName", nickname = "addPurchaseByName")
-    @RequestMapping(value = "/addPurchaseByName", method = POST)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "productName", value = "productName", required = true, dataType = "String",
-                    paramType = "query"),
-            @ApiImplicitParam(name = "producer", value = "producer", required = true, dataType = "String",
-                    paramType = "query"),
-            @ApiImplicitParam(name = "storeName", value = "storeName", required = true, dataType = "String",
-                    paramType = "query")
-    })
-    public Long addPurchaseByName(@RequestBody PurchaseDTO dto, @PathParam("productName") String productName, @PathParam("producer") String producer, @PathParam("storeName") String storeName) {
-        return purchaseService.addPurchaseByName(dto, productName, producer, storeName);
-    }
+//    @ApiOperation(value = "addPurchaseByName", nickname = "addPurchaseByName")
+//    @RequestMapping(value = "/addPurchaseByName", method = POST)
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "productName", value = "productName", required = true, dataType = "String",
+//                    paramType = "query"),
+//            @ApiImplicitParam(name = "producer", value = "producer", required = true, dataType = "String",
+//                    paramType = "query"),
+//            @ApiImplicitParam(name = "storeName", value = "storeName", required = true, dataType = "String",
+//                    paramType = "query")
+//    })
+//    public Long addPurchaseByName(@RequestBody PurchaseDTO dto, @PathParam("productName") String productName, @PathParam("producer") String producer, @PathParam("storeName") String storeName) {
+//        return purchaseService.addPurchaseByName(dto, productName, producer, storeName);
+//    }
 
     @ApiOperation(value = "findPurchase", nickname = "findPurchase")
     @RequestMapping(value = "/getPurchase/{id}", method = GET)
@@ -55,4 +55,8 @@ public class PurchaseController {
     @ApiOperation(value = "deletePurchase", nickname = "deletePurchase")
     @RequestMapping(value = "/deletePurchase/{id}", method = DELETE)
     public void deletePurchase(@PathVariable Long id) { purchaseService.deletePurchase(id);}
+
+//    @ApiOperation(value = "findByProduct", nickname = "findByProduct")
+//    @RequestMapping(value = "/findByProduct/{productId}", method = GET)
+//    public PurchaseDTO findByProduct(@PathVariable Long productId) { return purchaseService.findByProduct(productId);}
 }

@@ -1,12 +1,20 @@
 package application.service;
 
 import application.dto.StoreDTO;
-import application.exception.StoreExistException;
 import application.exception.StoreNotFoundException;
+import application.exception.ValidationError;
+import application.exception.ValidationException;
 import application.model.Store;
 import application.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static application.exception.ErrorMessages.ALREADY_EXIST;
+import static application.exception.ErrorMessages.MAY_NOT_BE_NULL;
+import static application.exception.ErrorMessages.NOT_ALLOWED;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -37,11 +45,11 @@ public class StoreService {
     }
 
     public Long updateStore(StoreDTO dto){
+        validateUpdate(dto);
         Store store = storeRepository.findOne(dto.getId());
         if (store == null){
             throw new StoreNotFoundException("Store not found");
         }
-        validate(dto);
         store.setName(dto.getName());
         return storeRepository.save(store).getId();
     }
@@ -55,9 +63,41 @@ public class StoreService {
     }
 
     private void validate(StoreDTO dto){
+        List<ValidationError> errors = new ArrayList<>();
+        if (dto.getId() != null) {
+            errors.add(new ValidationError("id", NOT_ALLOWED));
+        }
+        if (dto.getName() == null) {
+            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
+        }
+
         if (storeRepository.findByName(dto.getName()) != null){
-            throw new StoreExistException("This store already exist.");
+            errors.add(new ValidationError("store", ALREADY_EXIST));
+        }
+
+        if (!errors.isEmpty()){
+            throw new ValidationException(errors);
         }
     }
-    //TODO isNotEmpty etc
+
+    private void validateUpdate(StoreDTO dto){
+        List<ValidationError> errors = new ArrayList<>();
+        if (dto.getId() == null) {
+            errors.add(new ValidationError("id", MAY_NOT_BE_NULL));
+        }
+        if (dto.getId() <= 0){
+            errors.add(new ValidationError("id", NOT_ALLOWED));
+        }
+        if (dto.getName() == null) {
+            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
+        }
+
+        if (storeRepository.findByName(dto.getName()) != null){
+            errors.add(new ValidationError("store", ALREADY_EXIST));
+        }
+
+        if (!errors.isEmpty()){
+            throw new ValidationException(errors);
+        }
+    }
 }

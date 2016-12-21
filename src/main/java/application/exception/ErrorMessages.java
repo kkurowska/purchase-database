@@ -5,7 +5,9 @@ package application.exception;
  */
 public enum  ErrorMessages {
     MAY_NOT_BE_NULL("may not be null"),
-    NOT_ALLOWED("not allowed");
+    NOT_ALLOWED("not allowed"),
+    ALREADY_EXIST("already exist"),
+    NOT_FOUND("not found");
 
     private String message;
 

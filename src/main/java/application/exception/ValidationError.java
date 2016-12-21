@@ -36,4 +36,10 @@ public class ValidationError {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString(){
+        String s = new String(field + " " + message);
+        return s;
+    }
 }

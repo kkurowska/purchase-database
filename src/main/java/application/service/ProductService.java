@@ -1,10 +1,7 @@
 package application.service;
 
 import application.dto.ProductDTO;
-import application.exception.CategoryIllegalArgumentException;
-import application.exception.ProductExistException;
-import application.exception.ProductNotFoundException;
-import application.exception.UnitIllegalArgumentException;
+import application.exception.*;
 import application.model.Category;
 import application.model.Product;
 import application.model.Unit;
@@ -12,6 +9,12 @@ import application.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static application.exception.ErrorMessages.ALREADY_EXIST;
+import static application.exception.ErrorMessages.MAY_NOT_BE_NULL;
+import static application.exception.ErrorMessages.NOT_ALLOWED;
 import static application.model.Category.fromCategoryValue;
 import static application.model.Unit.fromUnitValue;
 
@@ -27,6 +30,7 @@ public class ProductService {
 
     public Long addProduct(ProductDTO dto){
         validate(dto);
+        validateDataBase(dto);
         Product product = new Product();
         product.setName(dto.getName());
         product.setProducer(dto.getProducer());
@@ -39,7 +43,7 @@ public class ProductService {
     public ProductDTO findProduct(Long id){
         Product product = productRepository.findOne(id);
         if (product == null){
-            throw new ProductNotFoundException("Product not found.");
+            throw new ProductNotFoundException("Product not found");
         }
         ProductDTO dto = new ProductDTO();
         dto.setId(product.getId());
@@ -51,11 +55,12 @@ public class ProductService {
     }
 
     public Long updateProduct(ProductDTO dto){
+        validateUpdate(dto);
+        validateDataBase(dto);
         Product product = productRepository.findOne(dto.getId());
         if (product == null){
-            throw new ProductNotFoundException("Product not found.");
+            throw new ProductNotFoundException("Product not found");
         }
-        validate(dto);
         product.setName(dto.getName());
         product.setProducer(dto.getProducer());
         product.setUnit(Unit.valueOf(dto.getUnit()));
@@ -66,21 +71,74 @@ public class ProductService {
     public void deleteProduct(Long id){
         Product product = productRepository.findOne(id);
         if (product == null){
-            throw new ProductNotFoundException("Product not found.");
+            throw new ProductNotFoundException("Product not found");
         }
         productRepository.delete(id);
     }
 
     private void validate(ProductDTO dto){
-        if (fromCategoryValue(dto.getCategory()) == null){
-            throw new CategoryIllegalArgumentException("There is no category named '" + dto.getCategory() + "'.");
+        List<ValidationError> errors = new ArrayList<>();
+        if (dto.getId() != null) {
+            errors.add(new ValidationError("id", NOT_ALLOWED));
         }
-        if (fromUnitValue(dto.getUnit()) == null){
-            throw new UnitIllegalArgumentException("There is no unit named '" + dto.getUnit() + "'.");
+        if (dto.getName() == null) {
+            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
         }
-        if (productRepository.findByNameAndProducer(dto.getName(), dto.getProducer()) != null){
-            throw new ProductExistException("This product already exist.");
+        if (dto.getProducer() == null) {
+            errors.add(new ValidationError("producer", MAY_NOT_BE_NULL));
+        }
+        if (dto.getUnit() == null ) {
+            errors.add(new ValidationError("unit", MAY_NOT_BE_NULL));
+        }
+        if (dto.getCategory() == null ) {
+            errors.add(new ValidationError("category", MAY_NOT_BE_NULL));
+        }
+
+        if (!errors.isEmpty()){
+            throw new ValidationException(errors);
         }
     }
-    //TODO isNotEmpty etc
+
+    private void validateUpdate(ProductDTO dto){
+        List<ValidationError> errors = new ArrayList<>();
+        if (dto.getId() == null) {
+            errors.add(new ValidationError("id", MAY_NOT_BE_NULL));
+        }
+        if (dto.getId() <= 0){
+            errors.add(new ValidationError("id", NOT_ALLOWED));
+        }
+        if (dto.getName() == null) {
+            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
+        }
+        if (dto.getProducer() == null) {
+            errors.add(new ValidationError("producer", MAY_NOT_BE_NULL));
+        }
+        if (dto.getUnit() == null ) {
+            errors.add(new ValidationError("unit", MAY_NOT_BE_NULL));
+        }
+        if (dto.getCategory() == null ) {
+            errors.add(new ValidationError("category", MAY_NOT_BE_NULL));
+        }
+
+        if (!errors.isEmpty()){
+            throw new ValidationException(errors);
+        }
+    }
+
+    private void validateDataBase(ProductDTO dto){
+        List<ValidationError> errors = new ArrayList<>();
+        if (fromCategoryValue(dto.getCategory()) == null){
+            errors.add(new ValidationError("category", NOT_ALLOWED));
+        }
+        if (fromUnitValue(dto.getUnit()) == null){
+            errors.add(new ValidationError("unit", NOT_ALLOWED));
+        }
+        if (productRepository.findByNameAndProducer(dto.getName(), dto.getProducer()) != null){
+            errors.add(new ValidationError("product", ALREADY_EXIST));
+        }
+
+        if (!errors.isEmpty()){
+            throw new ValidationException(errors);
+        }
+    }
 }
