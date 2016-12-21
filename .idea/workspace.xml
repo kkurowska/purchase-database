@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5c0213c3-8874-4a3d-9ec8-e2fa8b54a778" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/ProductRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java" afterPath="$PROJECT_DIR$/src/main/java/application/repository/StoreRepository.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/ProductService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/ProductService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/application/service/StoreService.java" afterPath="$PROJECT_DIR$/src/main/java/application/service/StoreService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -753,7 +749,14 @@
       <option name="project" value="LOCAL" />
       <updated>1482321768626</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="PPCE-33&#10;Input fields are case sensitive">
+      <created>1482323322177</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1482323322177</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -801,7 +804,8 @@
     <MESSAGE value="PPCE-31&#10;Create Unit as enum" />
     <MESSAGE value="PPCE-32&#10;[Updating products]" />
     <MESSAGE value="PPCE-30&#10;Implement Exceptions" />
-    <option name="LAST_COMMIT_MESSAGE" value="PPCE-30&#10;Implement Exceptions" />
+    <MESSAGE value="PPCE-33&#10;Input fields are case sensitive" />
+    <option name="LAST_COMMIT_MESSAGE" value="PPCE-33&#10;Input fields are case sensitive" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
