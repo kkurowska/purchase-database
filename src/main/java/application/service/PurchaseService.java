@@ -97,27 +97,39 @@ public class PurchaseService {
         purchaseRepository.delete(id);
     }
 
-    public double minimalProductPrice(Long productId){
+    public double minimalProductPrice(Long productId, String start, String end){
         Product product = productRepository.findOne(productId);
         if (product == null){
             throw new ProductNotFoundException("Product not found.");
         }
-        List<Purchase> purchases = purchaseRepository.findByProductOrderByPriceAsc(product);
-        if (purchases.isEmpty()){
-            throw new PurchaseNotFoundException("There is no purchase with productId " + productId);
+        List<Purchase> purchases = new ArrayList<Purchase>();
+        if (start == null && end == null){
+            purchases = productNoDates(product);
+        } else if (start == null && end != null){
+            purchases = productLessThan(product, end);
+        } else if (start != null && end == null){
+            purchases = productGreaterThan(product, start);
+        } else {
+            purchases = productBetween(product, start, end);
         }
         double minimalPrice = purchases.get(0).getPrice();
         return minimalPrice;
     }
 
-    public double averageProductPrice(Long productId){
+    public double averageProductPrice(Long productId, String start, String end){
         Product product = productRepository.findOne(productId);
         if (product == null){
             throw new ProductNotFoundException("Product not found.");
         }
-        List<Purchase> purchases = purchaseRepository.findByProduct(product);
-        if (purchases.isEmpty()){
-            throw new PurchaseNotFoundException("There is no purchase with productId " + productId);
+        List<Purchase> purchases = new ArrayList<Purchase>();
+        if (start == null && end == null){
+            purchases = productNoDates(product);
+        } else if (start == null && end != null){
+            purchases = productLessThan(product, end);
+        } else if (start != null && end == null){
+            purchases = productGreaterThan(product, start);
+        } else {
+            purchases = productBetween(product, start, end);
         }
         List<Double> prices = new ArrayList<Double>();
         double averagePrice = 0;
@@ -126,6 +138,54 @@ public class PurchaseService {
         }
         averagePrice = averagePrice/purchases.size();
         return averagePrice;
+    }
+
+    private List<Purchase> productNoDates(Product product){
+        List<Purchase> purchases = purchaseRepository.findByProductOrderByPriceAsc(product);
+        if (purchases.isEmpty()){
+            throw new PurchaseNotFoundException("There is no purchase with productId=" + product.getId());
+        }
+        return purchases;
+    }
+
+    private List<Purchase> productLessThan(Product product, String end){
+        try {
+            Date endDate = dateFormat.parse(end);
+            List<Purchase> purchases = purchaseRepository.findByProductAndDateLessThanOrderByPriceAsc(product, endDate);
+            if (purchases.isEmpty()) {
+                throw new PurchaseNotFoundException("There is no purchase with productId=" + product.getId() + " and dates before " + end);
+            }
+            return purchases;
+        } catch (ParseException e){
+            throw new WrongDateFormatException("Wrong date format, expected yyyy-MM-dd HH:mm:ss");
+        }
+    }
+
+    private List<Purchase> productGreaterThan(Product product, String start){
+        try {
+            Date startDate = dateFormat.parse(start);
+            List<Purchase> purchases = purchaseRepository.findByProductAndDateGreaterThanOrderByPriceAsc(product, startDate);
+            if (purchases.isEmpty()) {
+                throw new PurchaseNotFoundException("There is no purchase with productId=" + product.getId() + " and dates after " + start);
+            }
+            return purchases;
+        } catch (ParseException e){
+            throw new WrongDateFormatException("Wrong date format, expected yyyy-MM-dd HH:mm:ss");
+        }
+    }
+
+    private List<Purchase> productBetween(Product product, String start, String end){
+        try {
+            Date startDate = dateFormat.parse(start);
+            Date endDate = dateFormat.parse(end);
+            List<Purchase> purchases = purchaseRepository.findByProductAndDateBetweenOrderByPriceAsc(product, startDate, endDate);
+            if (purchases.isEmpty()) {
+                throw new PurchaseNotFoundException("There is no purchase with productId=" + product.getId() + " and dates between " + start + " - " + end);
+            }
+            return purchases;
+        } catch (ParseException e){
+            throw new WrongDateFormatException("Wrong date format, expected yyyy-MM-dd HH:mm:ss");
+        }
     }
 
 //    public PurchaseDTO findByProduct(Long productId) {

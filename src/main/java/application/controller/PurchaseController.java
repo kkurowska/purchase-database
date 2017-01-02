@@ -58,9 +58,22 @@ public class PurchaseController {
 
     @ApiOperation(value = "minimalProductPrice", nickname = "minimalProductPrice")
     @RequestMapping(value = "/minimalProductPrice/{productId}", method = GET)
-    public double  minimalProductPrice(@PathVariable Long productId) { return purchaseService. minimalProductPrice(productId);}
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate", value = "startDate", required = false, dataType = "String",
+                    paramType = "query"),
+            @ApiImplicitParam(name = "endDate", value = "endDate", required = false, dataType = "String",
+                    paramType = "query")
+    })
+    public double  minimalProductPrice(@PathVariable Long productId, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate) { return purchaseService.minimalProductPrice(productId, startDate, endDate);}
+
 
     @ApiOperation(value = "averageProductPrice", nickname = "averageProductPrice")
     @RequestMapping(value = "/averageProductPrice/{productId}", method = GET)
-    public double  averageProductPrice(@PathVariable Long productId) { return purchaseService. averageProductPrice(productId);}
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate", value = "startDate", required = false, dataType = "String",
+                    paramType = "query"),
+            @ApiImplicitParam(name = "endDate", value = "endDate", required = false, dataType = "String",
+                    paramType = "query")
+    })
+    public double  averageProductPrice(@PathVariable Long productId, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate) { return purchaseService. averageProductPrice(productId, startDate, endDate);}
 }

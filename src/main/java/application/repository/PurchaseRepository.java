@@ -21,4 +21,7 @@ public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
     Purchase findByProductAndStoreAndPriceAndSaleAndDate(Product product, Store store, double price, boolean sale, Date date);
     List<Purchase> findByProduct(Product product);
     List<Purchase> findByProductOrderByPriceAsc(Product product);
+    List<Purchase> findByProductAndDateBetweenOrderByPriceAsc(Product product, Date start, Date end);
+    List<Purchase> findByProductAndDateLessThanOrderByPriceAsc(Product product, Date end);
+    List<Purchase> findByProductAndDateGreaterThanOrderByPriceAsc(Product product, Date start);
 }
