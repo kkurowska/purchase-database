@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -94,6 +95,37 @@ public class PurchaseService {
             throw new PurchaseNotFoundException("Purchase not found");
         }
         purchaseRepository.delete(id);
+    }
+
+    public double minimalProductPrice(Long productId){
+        Product product = productRepository.findOne(productId);
+        if (product == null){
+            throw new ProductNotFoundException("Product not found.");
+        }
+        List<Purchase> purchases = purchaseRepository.findByProductOrderByPriceAsc(product);
+        if (purchases.isEmpty()){
+            throw new PurchaseNotFoundException("There is no purchase with productId " + productId);
+        }
+        double minimalPrice = purchases.get(0).getPrice();
+        return minimalPrice;
+    }
+
+    public double averageProductPrice(Long productId){
+        Product product = productRepository.findOne(productId);
+        if (product == null){
+            throw new ProductNotFoundException("Product not found.");
+        }
+        List<Purchase> purchases = purchaseRepository.findByProduct(product);
+        if (purchases.isEmpty()){
+            throw new PurchaseNotFoundException("There is no purchase with productId " + productId);
+        }
+        List<Double> prices = new ArrayList<Double>();
+        double averagePrice = 0;
+        for (int i = 0; i < purchases.size() ; i++) {
+            averagePrice += purchases.get(i).getPrice();
+        }
+        averagePrice = averagePrice/purchases.size();
+        return averagePrice;
     }
 
 //    public PurchaseDTO findByProduct(Long productId) {

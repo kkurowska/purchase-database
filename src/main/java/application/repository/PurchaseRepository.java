@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -18,5 +19,6 @@ import java.util.Date;
 public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
     Purchase findByProductAndStoreAndPriceAndSaleAndDate(Product product, Store store, double price, boolean sale, Date date);
-
+    List<Purchase> findByProduct(Product product);
+    List<Purchase> findByProductOrderByPriceAsc(Product product);
 }

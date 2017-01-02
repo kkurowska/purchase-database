@@ -56,7 +56,11 @@ public class PurchaseController {
     @RequestMapping(value = "/deletePurchase/{id}", method = DELETE)
     public void deletePurchase(@PathVariable Long id) { purchaseService.deletePurchase(id);}
 
-//    @ApiOperation(value = "findByProduct", nickname = "findByProduct")
-//    @RequestMapping(value = "/findByProduct/{productId}", method = GET)
-//    public PurchaseDTO findByProduct(@PathVariable Long productId) { return purchaseService.findByProduct(productId);}
+    @ApiOperation(value = "minimalProductPrice", nickname = "minimalProductPrice")
+    @RequestMapping(value = "/minimalProductPrice/{productId}", method = GET)
+    public double  minimalProductPrice(@PathVariable Long productId) { return purchaseService. minimalProductPrice(productId);}
+
+    @ApiOperation(value = "averageProductPrice", nickname = "averageProductPrice")
+    @RequestMapping(value = "/averageProductPrice/{productId}", method = GET)
+    public double  averageProductPrice(@PathVariable Long productId) { return purchaseService. averageProductPrice(productId);}
 }
