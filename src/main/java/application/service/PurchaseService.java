@@ -139,7 +139,7 @@ public class PurchaseService {
         if (dto.getPrice() == 0 ) {
             errors.add(new ValidationError(PRICE, MAY_NOT_BE_NULL));
         }
-        if (dto.getPrice() < 0){
+        if (dto.getPrice() < 0 || dto.getPrice() > 1000000000){
             errors.add(new ValidationError(PRICE, NOT_ALLOWED));
         }
         //sale can be null, then sale = false
