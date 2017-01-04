@@ -5,41 +5,30 @@ package application.exception;
  */
 public class ValidationError {
 
-    private String field;
-    private String message;
+    private ErrorField errorField;
+    private ErrorDescription errorDescription;
 
     public ValidationError() {
     }
 
-    public ValidationError(String field, String message) {
-        this.field = field;
-        this.message = message;
+    public ValidationError(ErrorField errorField, ErrorDescription errorDescription) {
+        this.errorField = errorField;
+        this.errorDescription = errorDescription;
     }
 
-    public ValidationError(String field, ErrorMessages errorMessage) {
-        this.field = field;
-        this.message = errorMessage.toString();
+    public ErrorField getErrorField() {
+        return errorField;
     }
 
-    public String getField() {
-        return field;
+    public void setErrorField(ErrorField errorField) {
+        this.errorField = errorField;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public ErrorDescription getErrorDescription() {
+        return errorDescription;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public String toString(){
-        String s = new String(field + " " + message);
-        return s;
+    public void setErrorDescription(ErrorDescription errorDescription) {
+        this.errorDescription = errorDescription;
     }
 }

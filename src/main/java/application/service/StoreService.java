@@ -12,9 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static application.exception.ErrorMessages.ALREADY_EXIST;
-import static application.exception.ErrorMessages.MAY_NOT_BE_NULL;
-import static application.exception.ErrorMessages.NOT_ALLOWED;
+import static application.exception.ErrorDescription.*;
+import static application.exception.ErrorField.*;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -36,7 +35,7 @@ public class StoreService {
     public StoreDTO findStore(Long id){
         Store store = storeRepository.findOne(id);
         if (store == null){
-            throw new StoreNotFoundException("Store not found");
+            throw new StoreNotFoundException();
         }
         StoreDTO dto = new StoreDTO();
         dto.setId(store.getId());
@@ -48,7 +47,7 @@ public class StoreService {
         validateUpdate(dto);
         Store store = storeRepository.findOne(dto.getId());
         if (store == null){
-            throw new StoreNotFoundException("Store not found");
+            throw new StoreNotFoundException();
         }
         store.setName(dto.getName());
         return storeRepository.save(store).getId();
@@ -57,7 +56,7 @@ public class StoreService {
     public void deleteStore(Long id){
         Store store = storeRepository.findOne(id);
         if (store == null){
-            throw new StoreNotFoundException("Store not found");
+            throw new StoreNotFoundException();
         }
         storeRepository.delete(id);
     }
@@ -65,14 +64,14 @@ public class StoreService {
     private void validate(StoreDTO dto){
         List<ValidationError> errors = new ArrayList<>();
         if (dto.getId() != null) {
-            errors.add(new ValidationError("id", NOT_ALLOWED));
+            errors.add(new ValidationError(ID, NOT_ALLOWED));
         }
         if (dto.getName() == null) {
-            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
         }
 
         if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
-            errors.add(new ValidationError("store", ALREADY_EXIST));
+            errors.add(new ValidationError(STORE, ALREADY_EXIST));
         }
 
         if (!errors.isEmpty()){
@@ -83,21 +82,28 @@ public class StoreService {
     private void validateUpdate(StoreDTO dto){
         List<ValidationError> errors = new ArrayList<>();
         if (dto.getId() == null) {
-            errors.add(new ValidationError("id", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(ID, MAY_NOT_BE_NULL));
         }
         if (dto.getId() <= 0){
-            errors.add(new ValidationError("id", NOT_ALLOWED));
+            errors.add(new ValidationError(ID, NOT_ALLOWED));
         }
         if (dto.getName() == null) {
-            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
         }
 
         if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
-            errors.add(new ValidationError("store", ALREADY_EXIST));
+            errors.add(new ValidationError(STORE, ALREADY_EXIST));
         }
 
         if (!errors.isEmpty()){
             throw new ValidationException(errors);
         }
+    }
+
+    public void setStoreRepository(StoreRepository storeRepository) {
+        this.storeRepository = storeRepository;
+    }
+
+    public StoreService() {
     }
 }

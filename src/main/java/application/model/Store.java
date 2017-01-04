@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 
 @Entity
-public class Store{
+public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

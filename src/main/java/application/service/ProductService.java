@@ -12,9 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static application.exception.ErrorMessages.ALREADY_EXIST;
-import static application.exception.ErrorMessages.MAY_NOT_BE_NULL;
-import static application.exception.ErrorMessages.NOT_ALLOWED;
+import static application.exception.ErrorDescription.*;
+import static application.exception.ErrorField.*;
 import static application.model.Category.fromCategoryValue;
 import static application.model.Unit.fromUnitValue;
 
@@ -43,7 +42,7 @@ public class ProductService {
     public ProductDTO findProduct(Long id){
         Product product = productRepository.findOne(id);
         if (product == null){
-            throw new ProductNotFoundException("Product not found");
+            throw new ProductNotFoundException();
         }
         ProductDTO dto = new ProductDTO();
         dto.setId(product.getId());
@@ -59,7 +58,7 @@ public class ProductService {
         validateDataBase(dto);
         Product product = productRepository.findOne(dto.getId());
         if (product == null){
-            throw new ProductNotFoundException("Product not found");
+            throw new ProductNotFoundException();
         }
         product.setName(dto.getName());
         product.setProducer(dto.getProducer());
@@ -71,7 +70,7 @@ public class ProductService {
     public void deleteProduct(Long id){
         Product product = productRepository.findOne(id);
         if (product == null){
-            throw new ProductNotFoundException("Product not found");
+            throw new ProductNotFoundException();
         }
         productRepository.delete(id);
     }
@@ -79,19 +78,19 @@ public class ProductService {
     private void validate(ProductDTO dto){
         List<ValidationError> errors = new ArrayList<>();
         if (dto.getId() != null) {
-            errors.add(new ValidationError("id", NOT_ALLOWED));
+            errors.add(new ValidationError(ID, NOT_ALLOWED));
         }
         if (dto.getName() == null) {
-            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
         }
         if (dto.getProducer() == null) {
-            errors.add(new ValidationError("producer", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(PRODUCER, MAY_NOT_BE_NULL));
         }
         if (dto.getUnit() == null ) {
-            errors.add(new ValidationError("unit", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(UNIT, MAY_NOT_BE_NULL));
         }
         if (dto.getCategory() == null ) {
-            errors.add(new ValidationError("category", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(CATEGORY, MAY_NOT_BE_NULL));
         }
 
         if (!errors.isEmpty()){
@@ -102,22 +101,22 @@ public class ProductService {
     private void validateUpdate(ProductDTO dto){
         List<ValidationError> errors = new ArrayList<>();
         if (dto.getId() == null) {
-            errors.add(new ValidationError("id", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(ID, MAY_NOT_BE_NULL));
         }
         if (dto.getId() <= 0){
-            errors.add(new ValidationError("id", NOT_ALLOWED));
+            errors.add(new ValidationError(ID, NOT_ALLOWED));
         }
         if (dto.getName() == null) {
-            errors.add(new ValidationError("name", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
         }
         if (dto.getProducer() == null) {
-            errors.add(new ValidationError("producer", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(PRODUCER, MAY_NOT_BE_NULL));
         }
         if (dto.getUnit() == null ) {
-            errors.add(new ValidationError("unit", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(UNIT, MAY_NOT_BE_NULL));
         }
         if (dto.getCategory() == null ) {
-            errors.add(new ValidationError("category", MAY_NOT_BE_NULL));
+            errors.add(new ValidationError(CATEGORY, MAY_NOT_BE_NULL));
         }
 
         if (!errors.isEmpty()){
@@ -128,13 +127,13 @@ public class ProductService {
     private void validateDataBase(ProductDTO dto){
         List<ValidationError> errors = new ArrayList<>();
         if (fromCategoryValue(dto.getCategory()) == null){
-            errors.add(new ValidationError("category", NOT_ALLOWED));
+            errors.add(new ValidationError(CATEGORY, NOT_ALLOWED));
         }
         if (fromUnitValue(dto.getUnit()) == null){
-            errors.add(new ValidationError("unit", NOT_ALLOWED));
+            errors.add(new ValidationError(UNIT, NOT_ALLOWED));
         }
         if (productRepository.findByNameIgnoreCaseAndProducerIgnoreCase(dto.getName(), dto.getProducer()) != null){
-            errors.add(new ValidationError("product", ALREADY_EXIST));
+            errors.add(new ValidationError(PRODUCT, ALREADY_EXIST));
         }
 
         if (!errors.isEmpty()){

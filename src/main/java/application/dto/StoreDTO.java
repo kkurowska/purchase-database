@@ -30,4 +30,18 @@ public class StoreDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean equals(StoreDTO other){
+        if (this == null && other == null) {
+            return true;
+        } else if (this !=null && other!= null) {
+            if (this.id == other.id && this.name == other.name) {
+                return true;
+            } else {
+                return false;
+            }
+        } else{
+            return false;
+        }
+    }
 }
