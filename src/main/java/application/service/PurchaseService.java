@@ -165,6 +165,7 @@ public class PurchaseService {
         Store store = storeRepository.findOne(dto.getStoreId());
         try {
             Date date = dateFormat.parse(dto.getDate());
+            checkDateParse(dto.getDate(),date);
             Purchase purchase = purchaseRepository.findByProductAndStoreAndPriceAndSaleAndDate(product, store, dto.getPrice(), dto.isSale(), date);
             if (purchase != null){
                 errors.add(new ValidationError(PURCHASE, ALREADY_EXIST));
@@ -175,6 +176,13 @@ public class PurchaseService {
 
         if (!errors.isEmpty()){
             throw new ValidationException(errors);
+        }
+    }
+
+    public void checkDateParse(String stringDate, Date date){
+        String checkDate = dateFormat.format(date);
+        if (! checkDate.equals(stringDate)){
+            throw new WrongDateFormatException();
         }
     }
 

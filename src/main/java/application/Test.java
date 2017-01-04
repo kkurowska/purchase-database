@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static application.utils.MyDateFormat.MY_DATE_FORMAT;
+
 /**
  * Created by kkurowska on 15.12.2016.
  */
@@ -45,8 +47,8 @@ public class Test {
 //        date2.setDate(20);
 //        System.out.println(date2.toLocaleString());
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateS1 = "2016-10-30 12:02:35";
+        DateFormat dateFormat = new SimpleDateFormat(MY_DATE_FORMAT.getValue());
+        String dateS1 = "0116--10-30 12:02:35";
         String dateS2 = "2016-10-30 12:02:35";
         try {
             Date date1 = dateFormat.parse(dateS1);
@@ -56,6 +58,27 @@ public class Test {
             } else {
                 System.out.println("Data1 wcześniej niż data2");
             }
+
+//            String[] parts = dateS1.split(" ");
+//            String[] date = parts[0].split("/");
+//            String[] time = parts[1].split(":");
+//            for (int i = 0; i < date.length ; i++) {
+//                System.out.println(date[i]);
+//            }
+//            for (int i = 0; i < time.length ; i++) {
+//                System.out.println(time[i]);
+//            }
+//            System.out.println(date1.getYear());
+//            if (date1.getYear() == Integer.parseInt(date[0])){
+//                System.out.println("Rok się zgadza");
+//            }
+            String checkDate1 = dateFormat.format(date1);
+            System.out.println(checkDate1);
+            if (checkDate1.equals(dateS1)){
+                System.out.println("Zgadza się");
+            }
+            System.out.println(checkDate1.equals(dateS1));
+
         } catch (ParseException e){
             //  throw new WrongDateFormatException("Wrong date format, expected yyyy-MM-dd HH:mm:ss");
         }
