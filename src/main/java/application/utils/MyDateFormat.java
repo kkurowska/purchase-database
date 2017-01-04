@@ -4,7 +4,7 @@ package application.utils;
  * Created by kkurowska on 04.01.2017.
  */
 public enum MyDateFormat {
-    MY_DATE_FORMAT("yyyy-MM-dd HH:mm:ss");
+    MY_DATE_FORMAT("yyyy/MM/dd HH:mm:ss");
 
     private String value;
 

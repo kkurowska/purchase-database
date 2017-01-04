@@ -181,7 +181,9 @@ public class PurchaseService {
 
     public void checkDateParse(String stringDate, Date date){
         String checkDate = dateFormat.format(date);
-        if (! checkDate.equals(stringDate)){
+        String[] parts = stringDate.split("/");
+        int year = Integer.parseInt(parts[0]);
+        if (!checkDate.equals(stringDate) || year > 9999){
             throw new WrongDateFormatException();
         }
     }

@@ -48,7 +48,7 @@ public class Test {
 //        System.out.println(date2.toLocaleString());
 
         DateFormat dateFormat = new SimpleDateFormat(MY_DATE_FORMAT.getValue());
-        String dateS1 = "0116--10-30 12:02:35";
+        String dateS1 = "10000-10-30 12:02:35";
         String dateS2 = "2016-10-30 12:02:35";
         try {
             Date date1 = dateFormat.parse(dateS1);
@@ -73,8 +73,10 @@ public class Test {
 //                System.out.println("Rok się zgadza");
 //            }
             String checkDate1 = dateFormat.format(date1);
-            System.out.println(checkDate1);
-            if (checkDate1.equals(dateS1)){
+            String[] parts = dateS1.split("-");
+            int year = Integer.parseInt(parts[0]);
+            System.out.println(checkDate1 + " year=" + year);
+            if (checkDate1.equals(dateS1) && year < 10000){
                 System.out.println("Zgadza się");
             }
             System.out.println(checkDate1.equals(dateS1));
