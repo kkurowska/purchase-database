@@ -8,7 +8,6 @@ import application.model.Store;
 import application.repository.ProductRepository;
 import application.repository.PurchaseRepository;
 import application.repository.StoreRepository;
-import application.utils.MyDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -126,20 +125,19 @@ public class PurchaseService {
         }
         if (dto.getProductId() == null) {
             errors.add(new ValidationError(PRODUCT_ID, MAY_NOT_BE_NULL));
-        }
-        if (dto.getProductId() <= 0){
+        } else if (dto.getProductId() <= 0){
             errors.add(new ValidationError(PRODUCT_ID, NOT_ALLOWED));
         }
         if (dto.getStoreId() == null) {
             errors.add(new ValidationError(STORE_ID, MAY_NOT_BE_NULL));
-        }
-        if (dto.getStoreId() <= 0){
+        } else if (dto.getStoreId() <= 0){
             errors.add(new ValidationError(STORE_ID, NOT_ALLOWED));
         }
         if (dto.getPrice() == 0 ) {
             errors.add(new ValidationError(PRICE, MAY_NOT_BE_NULL));
         }
-        if (dto.getPrice() < 0 || dto.getPrice() > 1000000000){
+        double maxPrice = 1000000000;
+        if (dto.getPrice() < 0 || dto.getPrice() > maxPrice){
             errors.add(new ValidationError(PRICE, NOT_ALLOWED));
         }
         //sale can be null, then sale = false
@@ -165,7 +163,7 @@ public class PurchaseService {
         Store store = storeRepository.findOne(dto.getStoreId());
         try {
             Date date = dateFormat.parse(dto.getDate());
-            checkDateParse(dto.getDate(),date);
+            checkParseDate(dto.getDate(),date);
             Purchase purchase = purchaseRepository.findByProductAndStoreAndPriceAndSaleAndDate(product, store, dto.getPrice(), dto.isSale(), date);
             if (purchase != null){
                 errors.add(new ValidationError(PURCHASE, ALREADY_EXIST));
@@ -179,7 +177,7 @@ public class PurchaseService {
         }
     }
 
-    public void checkDateParse(String stringDate, Date date){
+    public void checkParseDate(String stringDate, Date date){
         String checkDate = dateFormat.format(date);
         String[] parts = stringDate.split("/");
         int year = Integer.parseInt(parts[0]);

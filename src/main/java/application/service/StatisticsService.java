@@ -52,17 +52,17 @@ public class StatisticsService {
                 purchase = purchaseRepository.findTopByProductOrderByPriceAsc(product);
             } else if (start == null && end != null) {
                 Date endDate = dateFormat.parse(end);
-                purchaseService.checkDateParse(end, endDate);
+                purchaseService.checkParseDate(end, endDate);
                 purchase = purchaseRepository.findTopByProductAndDateLessThanOrderByPriceAsc(product, endDate);
             } else if (start != null && end == null) {
                 Date startDate = dateFormat.parse(start);
-                purchaseService.checkDateParse(start, startDate);
+                purchaseService.checkParseDate(start, startDate);
                 purchase = purchaseRepository.findTopByProductAndDateGreaterThanOrderByPriceAsc(product, startDate);
             } else {
                 Date startDate = dateFormat.parse(start);
-                purchaseService.checkDateParse(start, startDate);
+                purchaseService.checkParseDate(start, startDate);
                 Date endDate = dateFormat.parse(end);
-                purchaseService.checkDateParse(end, endDate);
+                purchaseService.checkParseDate(end, endDate);
                 purchase = purchaseRepository.findTopByProductAndDateBetweenOrderByPriceAsc(product, startDate, endDate);
             }
             if (purchase == null){
@@ -86,17 +86,17 @@ public class StatisticsService {
                 purchases = purchaseRepository.findByProduct(product);
             } else if (start == null && end != null) {
                 Date endDate = dateFormat.parse(end);
-                purchaseService.checkDateParse(end, endDate);
+                purchaseService.checkParseDate(end, endDate);
                 purchases = purchaseRepository.findByProductAndDateLessThan(product, endDate);
             } else if (start != null && end == null) {
                 Date startDate = dateFormat.parse(start);
-                purchaseService.checkDateParse(start, startDate);
+                purchaseService.checkParseDate(start, startDate);
                 purchases = purchaseRepository.findByProductAndDateGreaterThan(product, startDate);
             } else {
                 Date startDate = dateFormat.parse(start);
-                purchaseService.checkDateParse(start, startDate);
+                purchaseService.checkParseDate(start, startDate);
                 Date endDate = dateFormat.parse(end);
-                purchaseService.checkDateParse(end, endDate);
+                purchaseService.checkParseDate(end, endDate);
                 purchases = purchaseRepository.findByProductAndDateBetween(product, startDate, endDate);
             }
             if (purchases.isEmpty()) {
