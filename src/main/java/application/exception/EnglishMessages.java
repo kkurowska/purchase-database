@@ -25,6 +25,7 @@ public class EnglishMessages implements Messages {
         put(STORE_ID, "store id");
         put(PRICE, "price");
         put(DATE, "date");
+        put(ACTION, "action");
     }};
 
     private  Map<ErrorDescription, String> mapDescription = new HashMap<ErrorDescription,String>() {{

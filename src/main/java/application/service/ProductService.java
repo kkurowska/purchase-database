@@ -4,8 +4,10 @@ import application.dto.ProductDTO;
 import application.exception.*;
 import application.model.Category;
 import application.model.Product;
+import application.model.Purchase;
 import application.model.Unit;
 import application.repository.ProductRepository;
+import application.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
     public Long addProduct(ProductDTO dto){
         validate(dto);
@@ -72,7 +77,12 @@ public class ProductService {
         if (product == null){
             throw new ProductNotFoundException();
         }
-        productRepository.delete(id);
+        List<Purchase> purchases = purchaseRepository.findByProduct(product);
+        if (purchases.isEmpty()) {
+            productRepository.delete(id);
+        } else {
+            throw new ActionNotAllowedException();
+        }
     }
 
     private void validate(ProductDTO dto){

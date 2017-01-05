@@ -33,6 +33,10 @@ public class GlobalExceptionService {
         return message.getMessage(PURCHASE, NOT_FOUND);
     }
 
+    public String getMessageActionNotAllowed(){
+        return message.getMessage(ACTION, NOT_ALLOWED);
+    }
+
     public String getMessageValidation(ValidationException e){
         String outputMessage = new String(e.getMessage() + "\n");
         List<ValidationError> errors = e.getErrors();

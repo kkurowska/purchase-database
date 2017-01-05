@@ -15,7 +15,8 @@ public enum ErrorField {
     PRODUCT_ID,
     STORE_ID,
     PRICE,
-    DATE;
+    DATE,
+    ACTION;
 
     private ErrorField() {
     }

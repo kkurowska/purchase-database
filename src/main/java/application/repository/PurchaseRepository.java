@@ -19,6 +19,7 @@ import java.util.List;
 public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 
     Purchase findByProductAndStoreAndPriceAndSaleAndDate(Product product, Store store, double price, boolean sale, Date date);
+    List<Purchase> findByStore(Store store);
     List<Purchase> findByProduct(Product product);
     List<Purchase> findByProductAndDateBetween(Product product, Date start, Date end);
     List<Purchase> findByProductAndDateLessThan(Product product, Date end);

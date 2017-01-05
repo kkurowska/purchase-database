@@ -1,10 +1,13 @@
 package application.service;
 
 import application.dto.StoreDTO;
+import application.exception.ActionNotAllowedException;
 import application.exception.StoreNotFoundException;
 import application.exception.ValidationError;
 import application.exception.ValidationException;
+import application.model.Purchase;
 import application.model.Store;
+import application.repository.PurchaseRepository;
 import application.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,9 @@ public class StoreService {
 
     @Autowired
     private StoreRepository storeRepository;
+
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
     public Long addStore(StoreDTO dto){
         validate(dto);
@@ -58,7 +64,12 @@ public class StoreService {
         if (store == null){
             throw new StoreNotFoundException();
         }
-        storeRepository.delete(id);
+        List<Purchase> purchases = purchaseRepository.findByStore(store);
+        if (purchases.isEmpty()) {
+            storeRepository.delete(id);
+        } else {
+            throw new ActionNotAllowedException();
+        }
     }
 
     private void validate(StoreDTO dto){

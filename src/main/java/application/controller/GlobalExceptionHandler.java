@@ -55,5 +55,12 @@ public class GlobalExceptionHandler {
     public String handleException(PurchaseNotFoundException e) {
         return globalExceptionService.getMessagePurchaseNotFound();
     }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(value = ActionNotAllowedException.class)
+    public String handleException(ActionNotAllowedException e) {
+        return globalExceptionService.getMessageActionNotAllowed();
+    }
 }
 

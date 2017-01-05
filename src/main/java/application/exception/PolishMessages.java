@@ -27,6 +27,7 @@ public class PolishMessages implements Messages {
         put(STORE_ID, "id sklepu");
         put(PRICE, "cena");
         put(DATE, "data");
+        put(ACTION, "akcja");
     }};
 
     private  Map<ErrorDescription, String> mapDescription = new HashMap<ErrorDescription,String>() {{
