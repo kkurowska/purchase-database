@@ -31,10 +31,10 @@ public class Product{
 
     public Product() { }
 
-    public Product(String name, Unit unit, Category category) {
-        super();
+    public Product(String name, String producer, Unit unit, Category category) {
         this.name = name;
         this.unit = unit;
+        this.producer = producer;
         this.category = category;
     }
 

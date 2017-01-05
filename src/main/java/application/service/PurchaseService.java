@@ -52,7 +52,7 @@ public class PurchaseService {
             Date date = dateFormat.parse(dto.getDate());
             purchase.setDate(date);
         } catch (ParseException e){
-          //  throw new WrongDateFormatException("Wrong date format, expected yyyy-MM-dd HH:mm:ss");
+            // nothing happening because here date is validated
         }
         return purchaseRepository.save(purchase).getId();
     }

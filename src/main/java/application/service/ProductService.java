@@ -112,8 +112,7 @@ public class ProductService {
         List<ValidationError> errors = new ArrayList<>();
         if (dto.getId() == null) {
             errors.add(new ValidationError(ID, MAY_NOT_BE_NULL));
-        }
-        if (dto.getId() <= 0){
+        } else if (dto.getId() <= 0){
             errors.add(new ValidationError(ID, NOT_ALLOWED));
         }
         if (dto.getName() == null) {

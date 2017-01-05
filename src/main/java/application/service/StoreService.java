@@ -79,9 +79,7 @@ public class StoreService {
         }
         if (dto.getName() == null) {
             errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
-        }
-
-        if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
+        } else if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
             errors.add(new ValidationError(STORE, ALREADY_EXIST));
         }
 
@@ -94,15 +92,12 @@ public class StoreService {
         List<ValidationError> errors = new ArrayList<>();
         if (dto.getId() == null) {
             errors.add(new ValidationError(ID, MAY_NOT_BE_NULL));
-        }
-        if (dto.getId() <= 0){
+        } else if (dto.getId() <= 0){
             errors.add(new ValidationError(ID, NOT_ALLOWED));
         }
         if (dto.getName() == null) {
             errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
-        }
-
-        if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
+        } else if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
             errors.add(new ValidationError(STORE, ALREADY_EXIST));
         }
 

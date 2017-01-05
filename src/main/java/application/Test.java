@@ -1,5 +1,6 @@
 package application;
 
+import application.dto.ProductDTO;
 import application.model.*;
 
 import java.text.DateFormat;
@@ -7,6 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static application.model.Category.*;
+import static application.model.Unit.*;
 import static application.utils.MyDateFormat.MY_DATE_FORMAT;
 
 /**
@@ -47,43 +50,41 @@ public class Test {
 //        date2.setDate(20);
 //        System.out.println(date2.toLocaleString());
 
-        DateFormat dateFormat = new SimpleDateFormat(MY_DATE_FORMAT.getValue());
-        String dateS1 = "10000-10-30 12:02:35";
-        String dateS2 = "2016-10-30 12:02:35";
-        try {
-            Date date1 = dateFormat.parse(dateS1);
-            Date date2 = dateFormat.parse(dateS2);
-            if(date1.before(date2)) {
-                System.out.println("Data1 później niż data2");
-            } else {
-                System.out.println("Data1 wcześniej niż data2");
-            }
+//        DateFormat dateFormat = new SimpleDateFormat(MY_DATE_FORMAT.getValue());
+//        String dateS1 = "10000-10-30 12:02:35";
+//        String dateS2 = "2016-10-30 12:02:35";
+//        try {
+//            Date date1 = dateFormat.parse(dateS1);
+//            Date date2 = dateFormat.parse(dateS2);
+//            if(date1.before(date2)) {
+//                System.out.println("Data1 później niż data2");
+//            } else {
+//                System.out.println("Data1 wcześniej niż data2");
+//            }
+//            String checkDate1 = dateFormat.format(date1);
+//            String[] parts = dateS1.split("-");
+//            int year = Integer.parseInt(parts[0]);
+//            System.out.println(checkDate1 + " year=" + year);
+//            if (checkDate1.equals(dateS1) && year < 10000){
+//                System.out.println("Zgadza się");
+//            }
+//            System.out.println(checkDate1.equals(dateS1));
+//
+//        } catch (ParseException e){
+//            //  throw new WrongDateFormatException("Wrong date format, expected yyyy-MM-dd HH:mm:ss");
+//        }
+        ProductDTO productDTO = new ProductDTO("Milk", "Mlekovita", "LITER", "GROCERIES");
+        Product product = new Product("Milk", "Mlekovita", LITER, GROCERIES);
+        ProductDTO dto = new ProductDTO();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setProducer(product.getProducer());
+        dto.setUnit(product.getUnit().getValue());
+        dto.setCategory(product.getCategory().getValue());
 
-//            String[] parts = dateS1.split(" ");
-//            String[] date = parts[0].split("/");
-//            String[] time = parts[1].split(":");
-//            for (int i = 0; i < date.length ; i++) {
-//                System.out.println(date[i]);
-//            }
-//            for (int i = 0; i < time.length ; i++) {
-//                System.out.println(time[i]);
-//            }
-//            System.out.println(date1.getYear());
-//            if (date1.getYear() == Integer.parseInt(date[0])){
-//                System.out.println("Rok się zgadza");
-//            }
-            String checkDate1 = dateFormat.format(date1);
-            String[] parts = dateS1.split("-");
-            int year = Integer.parseInt(parts[0]);
-            System.out.println(checkDate1 + " year=" + year);
-            if (checkDate1.equals(dateS1) && year < 10000){
-                System.out.println("Zgadza się");
-            }
-            System.out.println(checkDate1.equals(dateS1));
+        System.out.println(dto.equals(productDTO));
 
-        } catch (ParseException e){
-            //  throw new WrongDateFormatException("Wrong date format, expected yyyy-MM-dd HH:mm:ss");
-        }
+        System.out.println(false == false);
     }
 
 

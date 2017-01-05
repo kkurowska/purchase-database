@@ -19,7 +19,7 @@ public class PurchaseDTO {
     public PurchaseDTO() {
     }
 
-    public PurchaseDTO(Long id, Long productId, Long storeId, double price, boolean sale, String date) {
+    public PurchaseDTO(Long productId, Long storeId, double price, boolean sale, String date) {
         this.productId = productId;
         this.storeId = storeId;
         this.price = price;
@@ -79,4 +79,15 @@ public class PurchaseDTO {
 //    public String toString(){
 //        return id + ", " + productId + ", " + storeId + ", " + price + ", " + sale + ", " + date;
 //    }
+
+    public boolean equals(PurchaseDTO other) {
+        if (this == null && other == null) {
+            return true;
+        } else if (this != null && other != null) {
+            if (this.id == other.getId() && this.productId == other.getProductId() && this.storeId == other.getStoreId() && this.price == other.getPrice() && this.sale == other.isSale() && this.date.equals(other.getDate())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

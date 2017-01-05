@@ -60,4 +60,15 @@ public class ProductDTO {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    public boolean equals(ProductDTO other) {
+        if (this == null && other == null) {
+            return true;
+        } else if (this != null && other != null) {
+            if (this.id == other.getId() && this.name == other.getName() && this.producer.equals(other.getProducer()) && this.unit.equals(other.getUnit()) && this.category.equals(other.getCategory())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
