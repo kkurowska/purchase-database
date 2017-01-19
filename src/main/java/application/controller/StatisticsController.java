@@ -43,6 +43,6 @@ public class StatisticsController {
             @ApiImplicitParam(name = "endDate", value = "endDate", required = false, dataType = "String",
                     paramType = "query")
     })
-    public double  averageProductPrice(@PathVariable Long productId, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate) { return statisticsService. averageProductPrice(productId, startDate, endDate);}
+    public double  averageProductPrice(@PathVariable Long productId, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate) { return statisticsService.averageProductPrice(productId, startDate, endDate);}
 }
 

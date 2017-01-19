@@ -5,6 +5,8 @@ import application.model.Purchase;
 import application.model.Store;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -15,6 +17,8 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import javax.sql.DataSource;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
@@ -30,6 +34,13 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().build();
+    }
+
 
     @Bean
     public Docket newsApi() {
@@ -37,7 +48,7 @@ public class Application {
                 .groupName("purchasedb")
                 .apiInfo(apiInfo())
                 .select()
-                .paths(regex("/purchase.*"))
+                .paths(regex("/api/.*"))
                 .build();
     }
 

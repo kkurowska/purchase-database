@@ -1,6 +1,8 @@
 package application.model;
 
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -17,6 +19,7 @@ public class Product{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+//    @Length(max = 50)
     @Column(name = "name")
     private String name;
 
