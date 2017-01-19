@@ -8,7 +8,9 @@ public enum ErrorDescription {
     WRONG_FORMAT,
     MAY_NOT_BE_NULL,
     NOT_ALLOWED,
-    ALREADY_EXIST;
+    ALREADY_EXIST,
+    DENIED,
+    WRONG;
 
     private ErrorDescription() {
     }

@@ -21,7 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         LOG.info("User {} trying to log in.", s);
-        UserDetails ud = userRepository.findByName(s);
+        UserDetails ud = userRepository.findByNameIgnoreCase(s);
+        if(ud == null) {
+            throw new UsernameNotFoundException("could not find the user '"
+                    + s + "'");
+        }
         return ud;
     }
 }

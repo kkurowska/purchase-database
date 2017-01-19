@@ -2,6 +2,7 @@ package application.service;
 
 import application.dto.PurchaseDTO;
 import application.exception.*;
+import application.exception.Error;
 import application.model.Product;
 import application.model.Purchase;
 import application.model.Store;
@@ -77,7 +78,7 @@ public class PurchaseService {
     public PurchaseDTO findPurchase(Long id){
         Purchase purchase = purchaseRepository.findOne(id);
         if (purchase == null){
-            throw new PurchaseNotFoundException();
+            throw new MyRuntimeException(new Error(PURCHASE, NOT_FOUND));
         }
         PurchaseDTO dto = new PurchaseDTO();
         dto.setId(purchase.getId());
@@ -92,7 +93,7 @@ public class PurchaseService {
     public void deletePurchase(Long id){
         Purchase purchase = purchaseRepository.findOne(id);
         if (purchase == null){
-            throw new PurchaseNotFoundException();
+            throw new MyRuntimeException(new Error(PURCHASE, NOT_FOUND));
         }
         purchaseRepository.delete(id);
     }
@@ -119,30 +120,31 @@ public class PurchaseService {
 
 
     private void validate(PurchaseDTO dto){
-        List<ValidationError> errors = new ArrayList<>();
+        List<Error> errors = new ArrayList<>();
         if (dto.getId() != null) {
-            errors.add(new ValidationError(ID, NOT_ALLOWED));
+            errors.add(new Error(ID, NOT_ALLOWED));
         }
         if (dto.getProductId() == null) {
-            errors.add(new ValidationError(PRODUCT_ID, MAY_NOT_BE_NULL));
+            errors.add(new Error(PRODUCT_ID, MAY_NOT_BE_NULL));
         } else if (dto.getProductId() <= 0){
-            errors.add(new ValidationError(PRODUCT_ID, NOT_ALLOWED));
+            errors.add(new Error(PRODUCT_ID, NOT_ALLOWED));
         }
         if (dto.getStoreId() == null) {
-            errors.add(new ValidationError(STORE_ID, MAY_NOT_BE_NULL));
+            errors.add(new Error(STORE_ID, MAY_NOT_BE_NULL));
         } else if (dto.getStoreId() <= 0){
-            errors.add(new ValidationError(STORE_ID, NOT_ALLOWED));
+            errors.add(new Error(STORE_ID, NOT_ALLOWED));
         }
         if (dto.getPrice() == 0 ) {
-            errors.add(new ValidationError(PRICE, MAY_NOT_BE_NULL));
+            errors.add(new Error(PRICE, MAY_NOT_BE_NULL));
         }
         double maxPrice = 1000000000;
-        if (dto.getPrice() < 0 || dto.getPrice() > maxPrice){
-            errors.add(new ValidationError(PRICE, NOT_ALLOWED));
+        double minPrice = 0.01;
+        if (dto.getPrice() < minPrice || dto.getPrice() > maxPrice){
+            errors.add(new Error(PRICE, NOT_ALLOWED));
         }
         //sale can be null, then sale = false
         if (dto.getDate() == null ) {
-            errors.add(new ValidationError(DATE, MAY_NOT_BE_NULL));
+            errors.add(new Error(DATE, MAY_NOT_BE_NULL));
         }
 
         if (!errors.isEmpty()){
@@ -151,12 +153,12 @@ public class PurchaseService {
     }
 
     private void validateDataBase(PurchaseDTO dto){
-        List<ValidationError> errors = new ArrayList<>();
+        List<Error> errors = new ArrayList<>();
         if (!productRepository.exists(dto.getProductId())){
-            errors.add(new ValidationError(PRODUCT, NOT_FOUND));
+            errors.add(new Error(PRODUCT, NOT_FOUND));
         }
         if (!storeRepository.exists(dto.getStoreId())){
-            errors.add(new ValidationError(STORE, NOT_FOUND));
+            errors.add(new Error(STORE, NOT_FOUND));
         }
 
         Product product = productRepository.findOne(dto.getProductId());
@@ -166,10 +168,10 @@ public class PurchaseService {
             checkParseDate(dto.getDate(),date);
             Purchase purchase = purchaseRepository.findByProductAndStoreAndPriceAndSaleAndDate(product, store, dto.getPrice(), dto.isSale(), date);
             if (purchase != null){
-                errors.add(new ValidationError(PURCHASE, ALREADY_EXIST));
+                errors.add(new Error(PURCHASE, ALREADY_EXIST));
             }
         } catch (ParseException e){
-            errors.add(new ValidationError(DATE, WRONG_FORMAT));
+            errors.add(new Error(DATE, WRONG_FORMAT));
         }
 
         if (!errors.isEmpty()){
@@ -182,7 +184,7 @@ public class PurchaseService {
         String[] parts = stringDate.split("/");
         int year = Integer.parseInt(parts[0]);
         if (!checkDate.equals(stringDate) || year > 9999){
-            throw new WrongDateFormatException();
+            throw new MyRuntimeException(new Error(DATE, WRONG_FORMAT));
         }
     }
 

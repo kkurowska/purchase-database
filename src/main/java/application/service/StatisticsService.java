@@ -1,8 +1,7 @@
 package application.service;
 
-import application.exception.ProductNotFoundException;
-import application.exception.PurchaseNotFoundException;
-import application.exception.WrongDateFormatException;
+import application.exception.Error;
+import application.exception.MyRuntimeException;
 import application.model.Product;
 import application.model.Purchase;
 import application.repository.ProductRepository;
@@ -18,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static application.exception.ErrorDescription.*;
+import static application.exception.ErrorField.*;
 import static application.utils.MyDateFormat.MY_DATE_FORMAT;
 
 /**
@@ -44,7 +45,7 @@ public class StatisticsService {
     public double minimalProductPrice(Long productId, String start, String end){
         Product product = productRepository.findOne(productId);
         if (product == null){
-            throw new ProductNotFoundException();
+            throw new MyRuntimeException(new Error(PRODUCT, NOT_FOUND));
         }
         Purchase purchase = new Purchase();
         try {
@@ -66,19 +67,19 @@ public class StatisticsService {
                 purchase = purchaseRepository.findTopByProductAndDateBetweenOrderByPriceAsc(product, startDate, endDate);
             }
             if (purchase == null){
-                throw new PurchaseNotFoundException();
+                throw new MyRuntimeException(new Error(PURCHASE, NOT_FOUND));
             }
             double minimalPrice = purchase.getPrice();
             return minimalPrice;
         } catch (ParseException e){
-            throw new WrongDateFormatException();
+            throw new MyRuntimeException(new Error(DATE, WRONG_FORMAT));
         }
     }
 
     public double averageProductPrice(Long productId, String start, String end){
         Product product = productRepository.findOne(productId);
         if (product == null){
-            throw new ProductNotFoundException();
+            throw new MyRuntimeException(new Error(PRODUCT, NOT_FOUND));
         }
         List<Purchase> purchases = new ArrayList<Purchase>();
         try {
@@ -100,7 +101,7 @@ public class StatisticsService {
                 purchases = purchaseRepository.findByProductAndDateBetween(product, startDate, endDate);
             }
             if (purchases.isEmpty()) {
-                throw new PurchaseNotFoundException();
+                throw new MyRuntimeException(new Error(PURCHASE, NOT_FOUND));
             }
             List<Double> prices = new ArrayList<Double>();
             double averagePrice = 0;
@@ -110,7 +111,7 @@ public class StatisticsService {
             averagePrice = averagePrice / purchases.size();
             return averagePrice;
         } catch (ParseException e){
-            throw new WrongDateFormatException();
+            throw new MyRuntimeException(new Error(DATE, WRONG_FORMAT));
         }
     }
 

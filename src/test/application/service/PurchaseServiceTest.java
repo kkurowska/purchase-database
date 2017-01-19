@@ -1,9 +1,8 @@
 package application.service;
 
 import application.dto.PurchaseDTO;
-import application.exception.PurchaseNotFoundException;
+import application.exception.MyRuntimeException;
 import application.exception.ValidationException;
-import application.exception.WrongDateFormatException;
 import application.model.Product;
 import application.model.Purchase;
 import application.model.Store;
@@ -272,8 +271,8 @@ public class PurchaseServiceTest {
         purchaseService.addPurchase(purchaseDTO);
     }
 
-    @Test (expected = WrongDateFormatException.class)
-    public void testAddPurchaseWhenDateWrongFormat() throws ValidationException, WrongDateFormatException {
+    @Test (expected = MyRuntimeException.class)
+    public void testAddPurchaseWhenDateWrongFormat() throws ValidationException, MyRuntimeException {
         Long id = new Long(3);
         Long productId = new Long(1);
         Long storeId = new Long(1);
@@ -321,7 +320,7 @@ public class PurchaseServiceTest {
     }
 
     @Test
-    public  void testFindPurchaseWhenProperArguments() throws PurchaseNotFoundException{
+    public  void testFindPurchaseWhenProperArguments() throws MyRuntimeException {
         Long id = new Long(3);
         Long productId = new Long(1);
         Long storeId = new Long(1);
@@ -353,15 +352,15 @@ public class PurchaseServiceTest {
 
     }
 
-    @Test (expected = PurchaseNotFoundException.class)
-    public  void testFindPurchaseWhenPurchaseNotExist() throws PurchaseNotFoundException{
+    @Test (expected = MyRuntimeException.class)
+    public  void testFindPurchaseWhenPurchaseNotExist() throws MyRuntimeException{
         Long id = new Long(3);
         when(purchaseRepository.findOne(id)).thenReturn(null);
         purchaseService.findPurchase(id);
     }
 
     @Test
-    public void testDeleteProductWhenProperArguments() throws PurchaseNotFoundException{
+    public void testDeleteProductWhenProperArguments() throws MyRuntimeException{
         Long id = new Long(3);
         Long productId = new Long(1);
         Long storeId = new Long(1);
@@ -380,8 +379,8 @@ public class PurchaseServiceTest {
         purchaseService.deletePurchase(id);
     }
 
-    @Test (expected = PurchaseNotFoundException.class)
-    public void testDeleteProductWhenPurchaseNotExist() throws PurchaseNotFoundException{
+    @Test (expected = MyRuntimeException.class)
+    public void testDeleteProductWhenPurchaseNotExist() throws MyRuntimeException{
         Long id = new Long(3);
         when(purchaseRepository.findOne(id)).thenReturn(null);
         purchaseService.deletePurchase(id);

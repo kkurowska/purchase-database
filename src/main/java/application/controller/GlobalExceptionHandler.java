@@ -4,6 +4,7 @@ import application.exception.*;
 import application.service.GlobalExceptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,38 +30,24 @@ public class GlobalExceptionHandler {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = WrongDateFormatException.class)
-    public String handleException(WrongDateFormatException e) {
-        return globalExceptionService.getMessageWrongDateFormat();
-    }
-
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(value = ProductNotFoundException.class)
-    public String handleException(ProductNotFoundException e) {
-        return globalExceptionService.getMessageProductNotFound();
-    }
-
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(value = StoreNotFoundException.class)
-    public String handleException(StoreNotFoundException e) {
-        return globalExceptionService.getMessageStoreNotFound();
-    }
-
-    @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(value = PurchaseNotFoundException.class)
-    public String handleException(PurchaseNotFoundException e) {
-        return globalExceptionService.getMessagePurchaseNotFound();
-    }
-
-    @ResponseBody
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(value = ActionNotAllowedException.class)
     public String handleException(ActionNotAllowedException e) {
         return globalExceptionService.getMessageActionNotAllowed();
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public String handleException(AccessDeniedException e) {
+        return globalExceptionService.getMessageAccessDenied();
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MyRuntimeException.class)
+    public String RunTimeException(MyRuntimeException e) {
+        return globalExceptionService.getMessageMyRuntime(e);
     }
 }
 

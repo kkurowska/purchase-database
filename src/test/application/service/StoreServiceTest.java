@@ -2,7 +2,7 @@ package application.service;
 
 import application.dto.StoreDTO;
 import application.exception.ActionNotAllowedException;
-import application.exception.StoreNotFoundException;
+import application.exception.MyRuntimeException;
 import application.exception.ValidationException;
 import application.model.Purchase;
 import application.model.Store;
@@ -89,7 +89,7 @@ public class StoreServiceTest {
     }
 
     @Test
-    public void testFindStoreWhenProperArguments() throws StoreNotFoundException {
+    public void testFindStoreWhenProperArguments() throws MyRuntimeException {
         Long id = new Long(3);
         String name = new String("Store");
         store.setId(id);
@@ -100,15 +100,15 @@ public class StoreServiceTest {
         assertTrue(storeDTO.equals(storeService.findStore(id)));
     }
 
-    @Test (expected = StoreNotFoundException.class)
-    public void testFindStoreWhenStoreNotExist() throws StoreNotFoundException {
+    @Test (expected = MyRuntimeException.class)
+    public void testFindStoreWhenStoreNotExist() throws MyRuntimeException {
         Long id = new Long(3);
         when(storeRepository.findOne(id)).thenReturn(null);
         storeService.findStore(id);
     }
 
     @Test
-    public void testUpdateStoreWhenProperArguments() throws ValidationException, StoreNotFoundException{
+    public void testUpdateStoreWhenProperArguments() throws ValidationException, MyRuntimeException{
         Long id = new Long(3);
         String name = new String("Store");
         String newName = new String("New Store");
@@ -126,7 +126,7 @@ public class StoreServiceTest {
     }
 
     @Test (expected = ValidationException.class)
-    public void testUpdateStoreWhenIdNull() throws ValidationException, StoreNotFoundException{
+    public void testUpdateStoreWhenIdNull() throws ValidationException, MyRuntimeException{
         String newName = new String("New Store");
         storeDTO.setName(newName);
         storeDTO.setId(null);
@@ -135,7 +135,7 @@ public class StoreServiceTest {
     }
 
     @Test (expected = ValidationException.class)
-    public void testUpdateStoreWhenNameIsNull() throws ValidationException, StoreNotFoundException{
+    public void testUpdateStoreWhenNameIsNull() throws ValidationException, MyRuntimeException{
         Long id = new Long(3);
         storeDTO.setName(null);
         storeDTO.setId(id);
@@ -144,7 +144,7 @@ public class StoreServiceTest {
     }
 
     @Test (expected = ValidationException.class)
-    public void testUpdateStoreWhenNameAlreadyExist() throws ValidationException, StoreNotFoundException{
+    public void testUpdateStoreWhenNameAlreadyExist() throws ValidationException, MyRuntimeException{
         Long id = new Long(3);
         String newName = new String("New Store");
         String name = new String("Store");
@@ -156,8 +156,8 @@ public class StoreServiceTest {
         storeService.updateStore(storeDTO);
     }
 
-    @Test (expected = StoreNotFoundException.class)
-    public void testUpdateStoreWhenStoreNotExist() throws ValidationException, StoreNotFoundException{
+    @Test (expected = MyRuntimeException.class)
+    public void testUpdateStoreWhenStoreNotExist() throws ValidationException, MyRuntimeException{
         Long id = new Long(3);
         String newName = new String("New Store");
         String name = new String("Store");
@@ -171,7 +171,7 @@ public class StoreServiceTest {
     }
 
     @Test
-    public void testDeleteStoreWhenProperArguments() throws StoreNotFoundException, ActionNotAllowedException {
+    public void testDeleteStoreWhenProperArguments() throws MyRuntimeException, ActionNotAllowedException {
         Long id = new Long(3);
         String name = new String("Store");
         store.setId(id);
@@ -183,15 +183,15 @@ public class StoreServiceTest {
         storeService.deleteStore(id);
     }
 
-    @Test (expected = StoreNotFoundException.class)
-    public void testDeleteStoreWhenStoreNotExist() throws StoreNotFoundException, ActionNotAllowedException {
+    @Test (expected = MyRuntimeException.class)
+    public void testDeleteStoreWhenStoreNotExist() throws MyRuntimeException, ActionNotAllowedException {
         Long id = new Long(3);
         when(storeRepository.findOne(id)).thenReturn(null);
         storeService.deleteStore(id);
     }
 
     @Test (expected = ActionNotAllowedException.class)
-    public void testDeleteStoreWhenExistPurchasesWithThisStore() throws StoreNotFoundException, ActionNotAllowedException {
+    public void testDeleteStoreWhenExistPurchasesWithThisStore() throws MyRuntimeException, ActionNotAllowedException {
         Long id = new Long(3);
         String name = new String("Store");
         store.setId(id);

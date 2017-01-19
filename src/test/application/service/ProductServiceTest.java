@@ -2,13 +2,10 @@ package application.service;
 
 import application.dto.ProductDTO;
 import application.exception.ActionNotAllowedException;
-import application.exception.ProductNotFoundException;
-import application.exception.StoreNotFoundException;
+import application.exception.MyRuntimeException;
 import application.exception.ValidationException;
-import application.model.Category;
 import application.model.Product;
 import application.model.Purchase;
-import application.model.Unit;
 import application.repository.ProductRepository;
 import application.repository.PurchaseRepository;
 import org.junit.Before;
@@ -191,7 +188,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testFindProductWhenProperArguments() throws ProductNotFoundException {
+    public void testFindProductWhenProperArguments() throws MyRuntimeException {
         Long id = new Long(3);
         String name = new String("Banana");
         String producer = new String("Chiquita");
@@ -211,8 +208,8 @@ public class ProductServiceTest {
         assertTrue(productDTO.equals(productService.findProduct(id)));
     }
 
-    @Test (expected = ProductNotFoundException.class)
-    public void testFindProductWhenProductNotExist() throws ProductNotFoundException {
+    @Test (expected = MyRuntimeException.class)
+    public void testFindProductWhenProductNotExist() throws MyRuntimeException {
         Long id = new Long(3);
         String name = new String("Banana");
         String producer = new String("Chiquita");
@@ -228,7 +225,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testUpdateProductWhenProperArguments() throws ValidationException, ProductNotFoundException{
+    public void testUpdateProductWhenProperArguments() throws ValidationException, MyRuntimeException{
         Long id = new Long(3);
         String name = new String("Banana");
         String producer = new String("Chiquita");
@@ -258,7 +255,7 @@ public class ProductServiceTest {
     }
 
     @Test (expected = ValidationException.class)
-    public void testUpdateProductWhenIdNull() throws ValidationException, ProductNotFoundException{
+    public void testUpdateProductWhenIdNull() throws ValidationException, MyRuntimeException{
         String name = new String("Banana");
         String producer = new String("Chiquita");
         String newProducer = new String("unknown");
@@ -273,7 +270,7 @@ public class ProductServiceTest {
     }
 
     @Test (expected = ValidationException.class)
-    public void testUpdateProductWhenIdIsNotPositive() throws ValidationException, ProductNotFoundException{
+    public void testUpdateProductWhenIdIsNotPositive() throws ValidationException, MyRuntimeException{
         Long id = new Long(-3);
         String name = new String("Banana");
         String producer = new String("Chiquita");
@@ -289,7 +286,7 @@ public class ProductServiceTest {
     }
 
     @Test (expected = ValidationException.class)
-    public void testUpdateProductWhenNameAlreadyExist() throws ValidationException, ProductNotFoundException{
+    public void testUpdateProductWhenNameAlreadyExist() throws ValidationException, MyRuntimeException{
         Long id = new Long(3);
         String name = new String("Banana");
         String producer = new String("Chiquita");
@@ -310,8 +307,8 @@ public class ProductServiceTest {
         productService.updateProduct(productDTO);
     }
 
-    @Test (expected = ProductNotFoundException.class)
-    public void testUpdateProductWhenProductNotExist() throws ValidationException, ProductNotFoundException{
+    @Test (expected = MyRuntimeException.class)
+    public void testUpdateProductWhenProductNotExist() throws ValidationException, MyRuntimeException{
         Long id = new Long(3);
         String name = new String("Banana");
         String producer = new String("Chiquita");
@@ -329,7 +326,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testDeleteProductWhenProperArguments() throws ProductNotFoundException, ActionNotAllowedException {
+    public void testDeleteProductWhenProperArguments() throws MyRuntimeException, ActionNotAllowedException {
         Long id = new Long(3);
         String name = new String("Banana");
         String producer = new String("Chiquita");
@@ -345,15 +342,15 @@ public class ProductServiceTest {
         productService.deleteProduct(id);
     }
 
-    @Test (expected = ProductNotFoundException.class)
-    public void testDeleteProductWhenProductNotExist() throws ProductNotFoundException, ActionNotAllowedException {
+    @Test (expected = MyRuntimeException.class)
+    public void testDeleteProductWhenProductNotExist() throws MyRuntimeException, ActionNotAllowedException {
         Long id = new Long(3);
         when(productRepository.findOne(id)).thenReturn(null);
         productService.deleteProduct(id);
     }
 
     @Test (expected = ActionNotAllowedException.class)
-    public void testDeleteProductWhenExistPurchasesWithThisProduct() throws ProductNotFoundException, ActionNotAllowedException {
+    public void testDeleteProductWhenExistPurchasesWithThisProduct() throws MyRuntimeException, ActionNotAllowedException {
         Long id = new Long(3);
         String name = new String("Banana");
         String producer = new String("Chiquita");

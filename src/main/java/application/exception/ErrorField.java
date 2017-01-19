@@ -16,7 +16,13 @@ public enum ErrorField {
     STORE_ID,
     PRICE,
     DATE,
-    ACTION;
+    USER,
+    PASSWORD,
+    NEW_PASSWORD,
+    OLD_PASSWORD,
+    USER_ROLE,
+    ACTION,
+    ACCESS;
 
     private ErrorField() {
     }

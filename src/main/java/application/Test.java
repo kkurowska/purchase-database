@@ -2,6 +2,11 @@ package application;
 
 import application.dto.ProductDTO;
 import application.model.*;
+import application.security.PasswordEncoderImpl;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,6 +16,7 @@ import java.util.*;
 import static application.model.Category.*;
 import static application.model.Unit.*;
 import static application.utils.MyDateFormat.MY_DATE_FORMAT;
+import static application.utils.UserRoles.ROLE_USER;
 
 /**
  * Created by kkurowska on 15.12.2016.
@@ -85,6 +91,14 @@ public class Test {
         System.out.println(dto.equals(productDTO));
 
         System.out.println(false == false);
+
+        PasswordEncoder passwordEncoder = new StandardPasswordEncoder();
+        String password = RandomStringUtils.randomAlphanumeric(12);
+        System.out.println(password);
+        String newPassword = passwordEncoder.encode("adminPass");
+        System.out.println(newPassword);
+
+        System.out.println(ROLE_USER.toString());
     }
 
 

@@ -3,15 +3,15 @@ package application.exception;
 /**
  * Created by kkurowska on 20.12.2016.
  */
-public class ValidationError {
+public class Error {
 
     private ErrorField errorField;
     private ErrorDescription errorDescription;
 
-    public ValidationError() {
+    public Error() {
     }
 
-    public ValidationError(ErrorField errorField, ErrorDescription errorDescription) {
+    public Error(ErrorField errorField, ErrorDescription errorDescription) {
         this.errorField = errorField;
         this.errorDescription = errorDescription;
     }

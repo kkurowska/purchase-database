@@ -7,18 +7,18 @@ import java.util.List;
  */
 public class ValidationException extends RuntimeException {
 
-    private List<ValidationError> errors;
+    private List<Error> errors;
 
-    public ValidationException(List<ValidationError> errors) {
+    public ValidationException(List<Error> errors) {
         super("ValidationException");
         this.errors = errors;
     }
 
-    public List<ValidationError> getErrors() {
+    public List<Error> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<ValidationError> errors) {
+    public void setErrors(List<Error> errors) {
         this.errors = errors;
     }
 }

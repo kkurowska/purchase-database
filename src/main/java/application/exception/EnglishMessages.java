@@ -26,14 +26,22 @@ public class EnglishMessages implements Messages {
         put(PRICE, "price");
         put(DATE, "date");
         put(ACTION, "action");
+        put(PASSWORD, "password");
+        put(NEW_PASSWORD, "new password");
+        put(OLD_PASSWORD, "old password");
+        put(USER_ROLE, "user role");
+        put(USER, "user");
+        put(ACCESS, "access");
     }};
 
     private  Map<ErrorDescription, String> mapDescription = new HashMap<ErrorDescription,String>() {{
         put(NOT_FOUND, "not found");
         put(WRONG_FORMAT, "wrong format");
+        put(WRONG, "wrong");
         put(MAY_NOT_BE_NULL, "may not be null");
         put(NOT_ALLOWED, "not allowed");
         put(ALREADY_EXIST, "already exist");
+        put(DENIED, "denied");
     }};
 
     public String getMessage(ErrorField ef, ErrorDescription ed){

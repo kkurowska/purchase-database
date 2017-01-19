@@ -1,6 +1,7 @@
 package application.service;
 
 import application.exception.*;
+import application.exception.Error;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,34 +18,26 @@ public class GlobalExceptionService {
 
     private Messages message = new EnglishMessages();
 
-    public String getMessageWrongDateFormat(){
-        return message.getMessage(DATE, WRONG_FORMAT);
-    }
-
-    public String getMessageProductNotFound(){
-        return message.getMessage(PRODUCT, NOT_FOUND);
-    }
-
-    public String getMessageStoreNotFound(){
-        return message.getMessage(STORE, NOT_FOUND);
-    }
-
-    public String getMessagePurchaseNotFound(){
-        return message.getMessage(PURCHASE, NOT_FOUND);
-    }
-
     public String getMessageActionNotAllowed(){
         return message.getMessage(ACTION, NOT_ALLOWED);
     }
 
     public String getMessageValidation(ValidationException e){
-        String outputMessage = new String(e.getMessage() + "\n");
-        List<ValidationError> errors = e.getErrors();
+        String outputMessage = new String("");
+        List<Error> errors = e.getErrors();
         for (int i = 0; i < errors.size(); i++) {
             ErrorField errorField = errors.get(i).getErrorField();
             ErrorDescription errorDescription = errors.get(i).getErrorDescription();
             outputMessage += message.getMessage(errorField, errorDescription) + "\n";
         }
         return outputMessage;
+    }
+
+    public String getMessageAccessDenied() {
+        return message.getMessage(ACCESS, DENIED);
+    }
+
+    public String getMessageMyRuntime(MyRuntimeException e) {
+        return message.getMessage(e.getError().getErrorField(), e.getError().getErrorDescription());
     }
 }

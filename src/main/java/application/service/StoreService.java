@@ -2,13 +2,14 @@ package application.service;
 
 import application.dto.StoreDTO;
 import application.exception.ActionNotAllowedException;
-import application.exception.StoreNotFoundException;
-import application.exception.ValidationError;
+import application.exception.Error;
+import application.exception.MyRuntimeException;
 import application.exception.ValidationException;
 import application.model.Purchase;
 import application.model.Store;
 import application.repository.PurchaseRepository;
 import application.repository.StoreRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,8 @@ public class StoreService {
     @Autowired
     private PurchaseRepository purchaseRepository;
 
+    private int maxLength = 20;
+
     public Long addStore(StoreDTO dto){
         validate(dto);
         Store store = new Store();
@@ -41,7 +44,7 @@ public class StoreService {
     public StoreDTO findStore(Long id){
         Store store = storeRepository.findOne(id);
         if (store == null){
-            throw new StoreNotFoundException();
+            throw new MyRuntimeException(new Error(STORE, NOT_FOUND));
         }
         StoreDTO dto = new StoreDTO();
         dto.setId(store.getId());
@@ -53,7 +56,7 @@ public class StoreService {
         validateUpdate(dto);
         Store store = storeRepository.findOne(dto.getId());
         if (store == null){
-            throw new StoreNotFoundException();
+            throw new MyRuntimeException(new Error(STORE, NOT_FOUND));
         }
         store.setName(dto.getName());
         return storeRepository.save(store).getId();
@@ -62,7 +65,7 @@ public class StoreService {
     public void deleteStore(Long id){
         Store store = storeRepository.findOne(id);
         if (store == null){
-            throw new StoreNotFoundException();
+            throw new MyRuntimeException(new Error(STORE, NOT_FOUND));
         }
         List<Purchase> purchases = purchaseRepository.findByStore(store);
         if (purchases.isEmpty()) {
@@ -73,14 +76,16 @@ public class StoreService {
     }
 
     private void validate(StoreDTO dto){
-        List<ValidationError> errors = new ArrayList<>();
+        List<Error> errors = new ArrayList<>();
         if (dto.getId() != null) {
-            errors.add(new ValidationError(ID, NOT_ALLOWED));
+            errors.add(new Error(ID, NOT_ALLOWED));
         }
-        if (dto.getName() == null) {
-            errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
+        if (dto.getName() == null || StringUtils.isBlank(dto.getName())) {
+            errors.add(new Error(NAME, MAY_NOT_BE_NULL));
+        } else if (dto.getName().length() > maxLength) {
+            errors.add(new Error(NAME, NOT_ALLOWED));
         } else if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
-            errors.add(new ValidationError(STORE, ALREADY_EXIST));
+            errors.add(new Error(STORE, ALREADY_EXIST));
         }
 
         if (!errors.isEmpty()){
@@ -89,16 +94,18 @@ public class StoreService {
     }
 
     private void validateUpdate(StoreDTO dto){
-        List<ValidationError> errors = new ArrayList<>();
+        List<Error> errors = new ArrayList<>();
         if (dto.getId() == null) {
-            errors.add(new ValidationError(ID, MAY_NOT_BE_NULL));
+            errors.add(new Error(ID, MAY_NOT_BE_NULL));
         } else if (dto.getId() <= 0){
-            errors.add(new ValidationError(ID, NOT_ALLOWED));
+            errors.add(new Error(ID, NOT_ALLOWED));
         }
-        if (dto.getName() == null) {
-            errors.add(new ValidationError(NAME, MAY_NOT_BE_NULL));
+        if (dto.getName() == null || StringUtils.isBlank(dto.getName())) {
+            errors.add(new Error(NAME, MAY_NOT_BE_NULL));
+        } else if (dto.getName().length() > maxLength) {
+            errors.add(new Error(NAME, NOT_ALLOWED));
         } else if (storeRepository.findByNameIgnoreCase(dto.getName()) != null){
-            errors.add(new ValidationError(STORE, ALREADY_EXIST));
+            errors.add(new Error(STORE, ALREADY_EXIST));
         }
 
         if (!errors.isEmpty()){

@@ -1,5 +1,6 @@
 package application.model;
 
+import application.utils.UserRoles;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,9 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Enumerated
+    private UserRoles userRole;
+
     public Long getId() {
         return id;
     }
@@ -41,6 +45,14 @@ public class User implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserRoles getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRoles userRole) {
+        this.userRole = userRole;
     }
 
     @Override
@@ -80,7 +92,7 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<SimpleGrantedAuthority> list = new ArrayList<>();
-        list.add(new SimpleGrantedAuthority("USER"));
+        list.add(new SimpleGrantedAuthority(userRole.name()));
         return list;
     }
 
