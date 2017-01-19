@@ -33,6 +33,8 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    private int maxLength = 20;
+
     public Long createUser(UserDTO dto) {
         validate(dto);
         validateDataBase(dto);
@@ -68,10 +70,12 @@ public class UserService {
         }
         if (dto.getName() == null || StringUtils.isBlank(dto.getName())) {
             errors.add(new Error(NAME, MAY_NOT_BE_NULL));
+        } else if (dto.getName().length() > maxLength) {
+            errors.add(new Error(NAME, NOT_ALLOWED));
         }
         if (dto.getPassword() == null || StringUtils.isBlank(dto.getPassword())) {
             errors.add(new Error(PASSWORD, MAY_NOT_BE_NULL));
-        } else if (dto.getPassword().length() > 63) {
+        } else if (dto.getPassword().length() > maxLength) {
             errors.add(new Error(PASSWORD, NOT_ALLOWED));
         }
         if (dto.getUserRole() == null) {
@@ -108,8 +112,7 @@ public class UserService {
         }
         if (dto.getNewPassword() == null || StringUtils.isBlank(dto.getNewPassword())) {
             errors.add(new Error(NEW_PASSWORD, MAY_NOT_BE_NULL));
-        }
-        if (dto.getNewPassword().length() > 63) {
+        } else if (dto.getNewPassword().length() > maxLength) {
             errors.add(new Error(NEW_PASSWORD, NOT_ALLOWED));
         }
 
