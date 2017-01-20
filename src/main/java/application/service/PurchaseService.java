@@ -98,6 +98,23 @@ public class PurchaseService {
         purchaseRepository.delete(id);
     }
 
+    public List<PurchaseDTO> findAll() {
+        List<Purchase> purchases = purchaseRepository.findAll();
+        List<PurchaseDTO> dtos = new ArrayList<>();
+        for (int i = 0; i < purchases.size(); i++) {
+            Purchase purchase = purchases.get(i);
+            PurchaseDTO dto = new PurchaseDTO();
+            dto.setId(purchase.getId());
+            dto.setProductId(purchase.getProduct().getId());
+            dto.setStoreId(purchase.getStore().getId());
+            dto.setPrice(purchase.getPrice());
+            dto.setSale(purchase.isSale());
+            dto.setDate(dateFormat.format(purchase.getDate()));
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
 
 //    public PurchaseDTO findByProduct(Long productId) {
 //        Product product = productRepository.findOne(productId);

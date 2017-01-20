@@ -1,10 +1,14 @@
 package application.controller;
 
 import application.dto.ProductDTO;
+import application.model.Product;
 import application.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -31,12 +35,18 @@ public class ProductController {
         return productService.findProduct(id);
     }
 
+    @RequestMapping(value = "/get/all", method = GET)
+    public List<ProductDTO> findAll() {
+        return productService.findAll();
+    }
 
     @ApiOperation(value = "updateProduct", nickname = "updateProduct")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/updateProduct", method = PUT)
     public Long updateProduct(@RequestBody ProductDTO dto) { return productService.updateProduct(dto);}
 
     @ApiOperation(value = "deleteProduct", nickname = "deleteProduct")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/deleteProduct/{id}", method = DELETE)
     public void deleteProduct(@PathVariable Long id) { productService.deleteProduct(id);}
 

@@ -16,4 +16,5 @@ public interface ProductRepository extends CrudRepository<Product, Long>, JpaSpe
 
     Product findByNameIgnoreCaseAndProducerIgnoreCase(String name, String producer);
 //    List<Product> findByCategory(String category);
+    List<Product> findAll();
 }

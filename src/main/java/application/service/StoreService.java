@@ -75,6 +75,19 @@ public class StoreService {
         }
     }
 
+    public List<StoreDTO> findAll() {
+        List<Store> stores = storeRepository.findAll();
+        List<StoreDTO> dtos = new ArrayList<>();
+        for (int i = 0; i < stores.size(); i++) {
+            Store store = stores.get(i);
+            StoreDTO dto = new StoreDTO();
+            dto.setId(store.getId());
+            dto.setName(store.getName());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
     private void validate(StoreDTO dto){
         List<Error> errors = new ArrayList<>();
         if (dto.getId() != null) {

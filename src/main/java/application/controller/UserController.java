@@ -42,11 +42,11 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/get/all", method = GET)
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
         return userService.findAll();
     }
 
-    @RequestMapping(value = "/changePassword", method = PUT)
+    @RequestMapping(value = "/changePassword", method = POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void changePassword(@RequestBody PasswordDTO dto) {
         userService.changePassword(dto);

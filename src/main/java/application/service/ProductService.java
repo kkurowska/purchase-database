@@ -89,6 +89,22 @@ public class ProductService {
         }
     }
 
+    public List<ProductDTO> findAll() {
+        List<Product> products = productRepository.findAll();
+        List<ProductDTO> dtos = new ArrayList<>();
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            ProductDTO dto = new ProductDTO();
+            dto.setId(product.getId());
+            dto.setName(product.getName());
+            dto.setProducer(product.getProducer());
+            dto.setUnit(product.getUnit().getValue());
+            dto.setCategory(product.getCategory().getValue());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+
     private void validate(ProductDTO dto){
         List<Error> errors = new ArrayList<>();
         if (dto.getId() != null) {

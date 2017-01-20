@@ -46,8 +46,19 @@ public class UserService {
         return userRepository.save(user).getId();
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        List<User> users = userRepository.findAll();
+        List<UserDTO> dtos = new ArrayList<>();
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            UserDTO dto = new UserDTO();
+            dto.setId(user.getId());
+            dto.setName(user.getName());
+            dto.setPassword(user.getPassword());
+            dto.setUserRole(user.getUserRole().getValue());
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     public void changePassword(PasswordDTO dto) {
