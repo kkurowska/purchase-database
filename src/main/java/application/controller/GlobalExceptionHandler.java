@@ -25,29 +25,33 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = ValidationException.class)
-    public String handleException(ValidationException e) {
+    public String handleValidationException(ValidationException e) {
         return globalExceptionService.getMessageValidation(e);
     }
 
     @ResponseBody
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(value = ActionNotAllowedException.class)
-    public String handleException(ActionNotAllowedException e) {
+    public String handleActionNotAllowedException(ActionNotAllowedException e) {
         return globalExceptionService.getMessageActionNotAllowed();
     }
 
     @ResponseBody
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(value = AccessDeniedException.class)
-    public String handleException(AccessDeniedException e) {
+    public String handleAccessDeniedException(AccessDeniedException e) {
         return globalExceptionService.getMessageAccessDenied();
     }
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MyRuntimeException.class)
-    public String RunTimeException(MyRuntimeException e) {
+    public String handleMyRuntimeException(MyRuntimeException e) {
         return globalExceptionService.getMessageMyRuntime(e);
+    }
+
+    public GlobalExceptionHandler(GlobalExceptionService globalExceptionService) {
+        this.globalExceptionService = globalExceptionService;
     }
 }
 
