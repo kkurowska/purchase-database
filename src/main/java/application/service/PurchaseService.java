@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +41,9 @@ public class PurchaseService {
     private StoreRepository storeRepository;
 
     private DateFormat dateFormat = new SimpleDateFormat(MY_DATE_FORMAT.getValue());
+    private DecimalFormat df = new DecimalFormat("#.##");
+    private double maxPrice = 1000000000;
+    private double minPrice = 0.01;
 
     public Long addPurchase(PurchaseDTO dto){
         validate(dto);
@@ -153,11 +157,14 @@ public class PurchaseService {
         }
         if (dto.getPrice() == 0 ) {
             errors.add(new Error(PRICE, MAY_NOT_BE_NULL));
-        }
-        double maxPrice = 1000000000;
-        double minPrice = 0.01;
-        if (dto.getPrice() < minPrice || dto.getPrice() > maxPrice){
+        } else if (dto.getPrice() < minPrice || dto.getPrice() > maxPrice){
             errors.add(new Error(PRICE, NOT_ALLOWED));
+        } else {
+            String price = String.valueOf(dto.getPrice());
+            String[] parts = price.split("\\.");
+            if (parts[1].length() > 2) {
+                errors.add(new Error(PRICE, NOT_ALLOWED));
+            }
         }
         //sale can be null, then sale = false
         if (dto.getDate() == null ) {

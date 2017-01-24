@@ -24,6 +24,7 @@ import static application.exception.ErrorDescription.*;
 import static application.exception.ErrorField.*;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -149,6 +150,7 @@ public class StoreControllerTest {
         when(storeService.updateStore(org.mockito.Matchers.any(StoreDTO.class))).thenReturn(id);
         try {
             mockMvc.perform(post("/store/updateStore")
+                    .with(user("admin").roles("ROLE_ADMIN"))
                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                     .content(TestUtil.convertObjectToJsonBytes(storeDTO))
             )
