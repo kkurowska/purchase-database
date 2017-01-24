@@ -61,6 +61,10 @@ public class UserService {
         return dtos;
     }
 
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
+    }
+
     public String changePassword(PasswordDTO dto) {
         validate(dto);
         User user = userRepository.findByNameIgnoreCase(dto.getName());
