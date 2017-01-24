@@ -1,10 +1,8 @@
 package application.service;
 
 import application.dto.StoreDTO;
-import application.exception.ActionNotAllowedException;
+import application.exception.*;
 import application.exception.Error;
-import application.exception.MyRuntimeException;
-import application.exception.ValidationException;
 import application.model.Purchase;
 import application.model.Store;
 import application.repository.PurchaseRepository;
@@ -33,6 +31,7 @@ public class StoreService {
     private PurchaseRepository purchaseRepository;
 
     private int maxLength = 20;
+    private Messages msg = new EnglishMessages();
 
     public Long addStore(StoreDTO dto){
         validate(dto);
@@ -62,7 +61,7 @@ public class StoreService {
         return storeRepository.save(store).getId();
     }
 
-    public void deleteStore(Long id){
+    public String deleteStore(Long id){
         Store store = storeRepository.findOne(id);
         if (store == null){
             throw new MyRuntimeException(new Error(STORE, NOT_FOUND));
@@ -70,6 +69,7 @@ public class StoreService {
         List<Purchase> purchases = purchaseRepository.findByStore(store);
         if (purchases.isEmpty()) {
             storeRepository.delete(id);
+            return msg.getMessage(STORE, DELETED);
         } else {
             throw new ActionNotAllowedException();
         }

@@ -41,8 +41,7 @@ public class PurchaseService {
     private StoreRepository storeRepository;
 
     private DateFormat dateFormat = new SimpleDateFormat(MY_DATE_FORMAT.getValue());
-    private DecimalFormat df = new DecimalFormat("#.##");
-    private double maxPrice = 1000000000;
+    private double maxPrice = 9999999.99; // it can't be a greater number, because of checking digits after dots
     private double minPrice = 0.01;
 
     public Long addPurchase(PurchaseDTO dto){

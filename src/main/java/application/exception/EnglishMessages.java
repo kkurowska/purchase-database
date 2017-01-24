@@ -42,6 +42,8 @@ public class EnglishMessages implements Messages {
         put(NOT_ALLOWED, "not allowed");
         put(ALREADY_EXIST, "already exist");
         put(DENIED, "denied");
+        put(DELETED, "deleted");
+        put(CHANGED, "changed");
     }};
 
     public String getMessage(ErrorField ef, ErrorDescription ed){

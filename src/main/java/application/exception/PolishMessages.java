@@ -44,6 +44,8 @@ public class PolishMessages implements Messages {
         put(NOT_ALLOWED, "- wartość nie dozwolona");
         put(ALREADY_EXIST, "- już istnieje");
         put(DENIED, "- odmowa");
+        put(DELETED, "- usunięto");
+        put(CHANGED, "- zmieniono");
     }};
 
     public String getMessage(ErrorField ef, ErrorDescription ed){

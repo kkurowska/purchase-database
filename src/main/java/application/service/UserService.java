@@ -2,9 +2,8 @@ package application.service;
 
 import application.dto.PasswordDTO;
 import application.dto.UserDTO;
-import application.exception.MyRuntimeException;
+import application.exception.*;
 import application.exception.Error;
-import application.exception.ValidationException;
 import application.model.User;
 import application.repository.UserRepository;
 import application.utils.UserRoles;
@@ -34,6 +33,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
 
     private int maxLength = 20;
+    private Messages msg = new EnglishMessages();
 
     public Long createUser(UserDTO dto) {
         validate(dto);
@@ -61,7 +61,7 @@ public class UserService {
         return dtos;
     }
 
-    public void changePassword(PasswordDTO dto) {
+    public String changePassword(PasswordDTO dto) {
         validate(dto);
         User user = userRepository.findByNameIgnoreCase(dto.getName());
         if (user == null) {
@@ -72,6 +72,7 @@ public class UserService {
         }
         user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         userRepository.save(user);
+        return msg.getMessage(PASSWORD, CHANGED);
     }
 
     private void validate(UserDTO dto) {

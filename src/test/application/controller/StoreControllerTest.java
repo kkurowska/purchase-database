@@ -17,6 +17,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.test.context.support.*;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.ServletTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -35,6 +40,11 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  */
 
 @RunWith(MockitoJUnitRunner.class)
+@TestExecutionListeners(listeners={ServletTestExecutionListener.class,
+        DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,}
+        )
 public class StoreControllerTest {
 
     private MockMvc mockMvc;
@@ -146,11 +156,11 @@ public class StoreControllerTest {
         Long id = new Long(3);
         String name = new String("Store");
         storeDTO.setName(name);
-        storeDTO.setId(null);
+        storeDTO.setId(id);
         when(storeService.updateStore(org.mockito.Matchers.any(StoreDTO.class))).thenReturn(id);
         try {
             mockMvc.perform(post("/store/updateStore")
-                    .with(user("admin").roles("ROLE_ADMIN"))
+                    .with(user("admin").roles("ADMIN"))
                     .contentType(TestUtil.APPLICATION_JSON_UTF8)
                     .content(TestUtil.convertObjectToJsonBytes(storeDTO))
             )
@@ -162,4 +172,26 @@ public class StoreControllerTest {
             System.out.println("Sth is wrong in testUpdateStoreWhenProperArguments " + e.getMessage());
         }
     }
+
+//    @Test
+//    public void testUpdateStoreWhenStoreNotExist() throws Exception {
+//        Long id = new Long(3);
+//        String name = new String("Store");
+//        storeDTO.setName(name);
+//        storeDTO.setId(id);
+//        when(storeService.updateStore(org.mockito.Matchers.any(StoreDTO.class))).thenThrow(new MyRuntimeException(new Error(STORE, NOT_FOUND)));
+//        try {
+//            mockMvc.perform(post("/store/updateStore")
+//                    .with(user("admin").roles("ADMIN"))
+//                    .contentType(TestUtil.APPLICATION_JSON_UTF8)
+//                    .content(TestUtil.convertObjectToJsonBytes(storeDTO))
+//            )
+//                    .andExpect(status().isBadRequest())
+//                    .andExpect(content().string("store not found"));
+//            verify(storeService, times(1)).updateStore(org.mockito.Matchers.any(StoreDTO.class));
+//            verifyNoMoreInteractions(storeService);
+//        } catch (Exception e) {
+//            System.out.println("Sth is wrong in testUpdateStoreWhenProperArguments " + e.getMessage());
+//        }
+//    }
 }

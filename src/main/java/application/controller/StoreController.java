@@ -43,7 +43,7 @@ public class StoreController {
     @ApiOperation(value = "deleteStore", nickname = "deleteStore")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/deleteStore/{id}", method = DELETE)
-    public void deleteStore(@PathVariable Long id) { storeService.deleteStore(id);}
+    public String deleteStore(@PathVariable Long id) { return storeService.deleteStore(id);}
 
     @RequestMapping(value = "/get/all", method = GET)
     public List<StoreDTO> findAll() {

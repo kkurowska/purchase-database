@@ -10,7 +10,9 @@ public enum ErrorDescription {
     NOT_ALLOWED,
     ALREADY_EXIST,
     DENIED,
-    WRONG;
+    WRONG,
+    DELETED,
+    CHANGED;
 
     private ErrorDescription() {
     }

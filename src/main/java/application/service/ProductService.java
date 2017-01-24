@@ -35,6 +35,7 @@ public class ProductService {
     private PurchaseRepository purchaseRepository;
 
     private int maxLength = 20;
+    private Messages msg = new EnglishMessages();
 
     public Long addProduct(ProductDTO dto){
         validate(dto);
@@ -76,7 +77,7 @@ public class ProductService {
         return productRepository.save(product).getId();
     }
 
-    public void deleteProduct(Long id){
+    public String deleteProduct(Long id){
         Product product = productRepository.findOne(id);
         if (product == null){
             throw new MyRuntimeException(new Error(PRODUCT, NOT_FOUND));
@@ -84,6 +85,7 @@ public class ProductService {
         List<Purchase> purchases = purchaseRepository.findByProduct(product);
         if (purchases.isEmpty()) {
             productRepository.delete(id);
+            return msg.getMessage(PRODUCT, DELETED);
         } else {
             throw new ActionNotAllowedException();
         }

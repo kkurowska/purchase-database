@@ -48,6 +48,6 @@ public class ProductController {
     @ApiOperation(value = "deleteProduct", nickname = "deleteProduct")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/deleteProduct/{id}", method = DELETE)
-    public void deleteProduct(@PathVariable Long id) { productService.deleteProduct(id);}
+    public String deleteProduct(@PathVariable Long id) { return productService.deleteProduct(id);}
 
 }
