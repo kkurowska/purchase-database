@@ -96,6 +96,12 @@ public class User implements UserDetails {
         return list;
     }
 
+    public User(String name, String password, UserRoles userRole) {
+        this.name = name;
+        this.password = password;
+        this.userRole = userRole;
+    }
+
     public User() {
     }
 }

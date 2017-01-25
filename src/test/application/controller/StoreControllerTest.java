@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.Application;
+import application.WebSecurityConfiguration;
 import application.dto.StoreDTO;
 import application.exception.*;
 import application.exception.Error;
@@ -12,6 +13,7 @@ import application.service.GlobalExceptionService;
 import application.service.StoreService;
 import application.utils.TestUtil;
 import application.utils.UserRoles;
+import application.utils.WithMockCustomUserSecurityContextFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +34,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.*;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
@@ -42,9 +45,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 import static application.exception.ErrorDescription.*;
 import static application.exception.ErrorField.*;
-import static application.utils.UserRoles.ROLE_ADMIN;
+import static application.utils.UserRoles.*;
 import static org.mockito.Mockito.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -58,7 +64,16 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
  */
 
 @RunWith(MockitoJUnitRunner.class)
+@ContextConfiguration(classes = WebSecurityConfiguration.class)
 public class StoreControllerTest {
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @WithSecurityContext(factory = WithMockCustomUserSecurityContextFactory.class)
+    public @interface WithMockCustomUser {
+        String username() default "user";
+        String password() default "password";
+        String authority() default "USER";
+    }
 
     private MockMvc mockMvc;
 
@@ -67,8 +82,8 @@ public class StoreControllerTest {
     private Messages msg = new EnglishMessages();
 
     private StoreDTO storeDTO;
-    @Mock
-    SecurityContextHolder securityContextHolder;
+//    @Mock
+//    SecurityContextHolder securityContextHolder;
     @Mock
     private StoreService storeService;
     @InjectMocks
@@ -83,6 +98,12 @@ public class StoreControllerTest {
         mockMvc = standaloneSetup(storeController)
                 .setControllerAdvice(globalExceptionHandler)
                 .build();
+//        User user = new User();
+//        user.setName("admin");
+//        user.setPassword("adminPass");
+//        user.setUserRole(ROLE_USER);
+//        Authentication authToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
     }
 
     @Test
@@ -167,36 +188,31 @@ public class StoreControllerTest {
             System.out.println("Sth is wrong in testGetStoreWhenStoreNotExist " + e.getMessage());
         }
     }
-//
-//    @Test
-//    @WithMockUser(roles="ROLE_ADMIN")
-//    public void testUpdateStoreWhenProperArguments() throws Exception {
-//        Long id = new Long(3);
-//        String name = new String("Store");
-//        storeDTO.setName(name);
-//        storeDTO.setId(id);
-//        when(storeService.updateStore(org.mockito.Matchers.any(StoreDTO.class))).thenReturn(id);
-//        try {
-////            User user = new User();
-////            user.setName("admin");
-////            user.setPassword("adminPass");
-////            user.setUserRole(ROLE_ADMIN);
-////            Authentication authToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
-////            securityContextHolder.getContext().setAuthentication(authToken);
-//            RequestBuilder request = post("/store/updateStore")
-////                    .principal(authToken)
-////                    .with(user("admin").roles("ADMIN"))
-//                    .contentType(TestUtil.APPLICATION_JSON_UTF8)
-//                    .content(TestUtil.convertObjectToJsonBytes(storeDTO));
-//            mockMvc.perform(request)
-//                    .andExpect(status().isOk())
-//                    .andExpect(content().string("3"));
-//            verify(storeService, times(1)).updateStore(org.mockito.Matchers.any(StoreDTO.class));
-//            verifyNoMoreInteractions(storeService);
-//        } catch (Exception e) {
-//            System.out.println("Sth is wrong in testUpdateStoreWhenProperArguments!!!!!!!!!! " + e.getClass() + ": " + e.getMessage() + ", " + e.getCause());
-//        }
-//    }
+
+    @Test
+//    @WithMockUser(roles="ROLE_USER")
+//    @WithUserDetails("user")
+    @WithMockCustomUser
+    public void testUpdateStoreWhenProperArguments() throws Exception {
+        Long id = new Long(3);
+        String name = new String("Store");
+        storeDTO.setName(name);
+        storeDTO.setId(id);
+        when(storeService.updateStore(org.mockito.Matchers.any(StoreDTO.class))).thenReturn(id);
+        try {
+            RequestBuilder request = put("/store/updateStore")
+//                    .with(user("user").roles("USER"))
+                    .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                    .content(TestUtil.convertObjectToJsonBytes(storeDTO));
+            mockMvc.perform(request)
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("3"));
+            verify(storeService, times(1)).updateStore(org.mockito.Matchers.any(StoreDTO.class));
+            verifyNoMoreInteractions(storeService);
+        } catch (Exception e) {
+            System.out.println("Sth is wrong in testUpdateStoreWhenProperArguments!!!!!!!!!! " + e.getClass() + ": " + e.getMessage() + ", " + e.getCause());
+        }
+    }
 
 //    @Test
 //    public void testUpdateStoreWhenStoreNotExist() throws Exception {

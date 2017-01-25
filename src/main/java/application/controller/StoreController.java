@@ -37,7 +37,8 @@ public class StoreController {
     }
 
     @ApiOperation(value = "updateStore", nickname = "updateStore")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority(T(application.utils.UserRoles).ROLE_ADMIN)")
     @RequestMapping(value = "/updateStore", method = PUT)
     public Long updateStore(@RequestBody StoreDTO dto) { return storeService.updateStore(dto);}
 
