@@ -60,8 +60,8 @@ public class PurchaseController {
     @ApiOperation(value = "deletePurchase", nickname = "deletePurchase")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/deletePurchase/{id}", method = DELETE)
-    public void deletePurchase(@PathVariable Long id) {
-        purchaseService.deletePurchase(id);
+    public String deletePurchase(@PathVariable Long id) {
+        return purchaseService.deletePurchase(id);
     }
 
     @RequestMapping(value = "/get/all", method = GET)

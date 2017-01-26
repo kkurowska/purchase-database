@@ -82,8 +82,6 @@ public class StoreControllerTest {
     private Messages msg = new EnglishMessages();
 
     private StoreDTO storeDTO;
-//    @Mock
-//    SecurityContextHolder securityContextHolder;
     @Mock
     private StoreService storeService;
     @InjectMocks

@@ -40,6 +40,8 @@ public class PurchaseService {
     @Autowired
     private StoreRepository storeRepository;
 
+    private Messages msg = new EnglishMessages();
+
     private DateFormat dateFormat = new SimpleDateFormat(MY_DATE_FORMAT.getValue());
     private double maxPrice = 9999999.99; // it can't be a greater number, because of checking digits after dots
     private double minPrice = 0.01;
@@ -93,12 +95,13 @@ public class PurchaseService {
         return dto;
     }
 
-    public void deletePurchase(Long id){
+    public String deletePurchase(Long id){
         Purchase purchase = purchaseRepository.findOne(id);
         if (purchase == null){
             throw new MyRuntimeException(new Error(PURCHASE, NOT_FOUND));
         }
         purchaseRepository.delete(id);
+        return msg.getMessage(PURCHASE, DELETED);
     }
 
     public List<PurchaseDTO> findAll() {

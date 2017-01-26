@@ -83,7 +83,7 @@ public class PurchaseControllerTest {
     }
 
     @Test
-    @WithUserDetails("none")
+    @WithUserDetails("user")
     public void testAddPurchaseWhenProperArguments() throws Exception {
         Long id = new Long(3);
         Long productId = new Long(1);
@@ -175,4 +175,6 @@ public class PurchaseControllerTest {
             System.out.println("Sth is wrong in testFindPurchaseWhenProperArguments " + e.getMessage());
         }
     }
+
+
 }
