@@ -1,0 +1,28 @@
+<div>
+    <div>
+        <h2>Minimal price</h2>
+    </div>
+    <div>
+        <form>
+            <div>
+                <label for="productName">Product:</label>
+                <input type="text" id="productName" ng-model="stat.productName">
+            </div>
+            <div>
+                <label for="producer">Producer</label>
+                <input type="text" id="producer" ng-model="stat.producer">
+            </div>
+            <div><label>Date</label>
+                <div>
+                    <label for="fromDate">from:</label>
+                    <input type="text" id="fromDate" ng-model="stat.fromDate">
+                </div>
+                <div>
+                    <label for="toDate">to:</label>
+                    <input type="text" id="toDate" ng-model="stat.toDate">
+                </div>
+            </div>
+            <button type="submit" ng-click="minPrice(stat)">ok</button>
+        </form>
+    </div>
+</div>

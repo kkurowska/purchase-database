@@ -24,8 +24,8 @@ public class StatisticsController {
     @Autowired
     StatisticsService statisticsService;
 
-    @ApiOperation(value = "minimalProductPrice", nickname = "minimalProductPrice")
-    @RequestMapping(value = "/minimalProductPrice/{productId}", method = GET)
+    @ApiOperation(value = "minimalPrice", nickname = "minimalPrice")
+    @RequestMapping(value = "/minimalPrice/{productId}", method = GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "startDate", value = "startDate", required = false, dataType = "String",
                     paramType = "query"),
@@ -35,8 +35,8 @@ public class StatisticsController {
     public double  minimalProductPrice(@PathVariable Long productId, @PathParam("startDate") String startDate, @PathParam("endDate") String endDate) { return statisticsService.minimalProductPrice(productId, startDate, endDate);}
 
 
-    @ApiOperation(value = "averageProductPrice", nickname = "averageProductPrice")
-    @RequestMapping(value = "/averageProductPrice/{productId}", method = GET)
+    @ApiOperation(value = "averagePrice", nickname = "averagePrice")
+    @RequestMapping(value = "/averagePrice/{productId}", method = GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "startDate", value = "startDate", required = false, dataType = "String",
                     paramType = "query"),
