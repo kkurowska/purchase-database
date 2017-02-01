@@ -16,15 +16,13 @@
                     <input type="text" id="toDate" ng-model="stat.toDate">
                 </div>
             </div>
-            <button type="submit" ng-click="minPrice(stat)">ok</button>
+            <button type="submit" ng-click="avgPrice(stat)">ok</button>
         </form>
     </div>
     <div>
         {{ success }}
     </div>
     <div>
-        <!--<label for="minPrice">Minimal price:</label>-->
-        <!--<output type="text" id="minPrice"> {{minPrice}} </output>-->
-        <label>Minimal price:</label>{{minPrice}}
+        <label>Average price:</label>{{avgPrice}}
     </div>
 </div>

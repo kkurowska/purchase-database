@@ -4,6 +4,7 @@ import application.exception.*;
 import application.service.GlobalExceptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,11 +44,11 @@ public class GlobalExceptionHandler {
         return globalExceptionService.getMessageAccessDenied();
     }
 
-    @ResponseBody
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MyRuntimeException.class)
-    public String handleMyRuntimeException(MyRuntimeException e) {
-        return globalExceptionService.getMessageMyRuntime(e);
+    @ResponseBody
+    public ResponseEntity<String> handleMyRuntimeException(MyRuntimeException e) {
+        return new ResponseEntity<String>(globalExceptionService.getMessageMyRuntime(e), HttpStatus.BAD_REQUEST);
     }
 
     public GlobalExceptionHandler(GlobalExceptionService globalExceptionService) {
